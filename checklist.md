@@ -34,7 +34,6 @@
 
 - [ ] Initialize React project
 - [ ] Install and configure Tailwind CSS
-- [ ] Set up Redux Toolkit for global state management (cart, wishlist, user session)
 
 ### **Milestone 3.2: Customer Shopping Flow**
 
