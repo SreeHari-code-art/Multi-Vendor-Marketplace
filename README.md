@@ -9,7 +9,6 @@
 **_Frontend_**
 
 - React Js
-- Redux
 
 <br />
 
