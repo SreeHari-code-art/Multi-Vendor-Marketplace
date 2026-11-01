@@ -10,20 +10,17 @@
 
 - React Js
 
-<br />
-
-## Step to Start Project
+## Step to Start
 
 **For Backend**
 
 1.  `git clone https://github.com/MohitSojitra/e-commerce-store.git`
-2.  `cd e-comerce-backend`
-3.  `npm i`
-4.  `npm run data:import`
-5.  `npm run dev`
+2.  `cd Multi-Vendor-Marketplace`
+3.  `npm install`
+4.  `npm run dev`
 
 **For Frontend**
 
-1.  `cd e-comerce-frontend`
-2.  `npm i`
+1.  `cd Multi-Vendor-Marketplace`
+2.  `npm install`
 3.  `npm run start`
