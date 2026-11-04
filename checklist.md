@@ -5,7 +5,7 @@
 - [ ] Initialize the monorepo or separate folders for `backend` and `frontend`
 - [ ] Configure environment variables (Ports, MongoDB connection strings, JWT secrets)
 
-### **Milestone 1.2: Database Schema Architecture (MongoDB & Mongoose)**
+### **Milestone 1.2: Database Schema Architecture**
 
 - [ ] **User Model**: Handle customer, seller, and admin roles
 - [ ] **Shop Model**: Store vendor profile information and verification status
