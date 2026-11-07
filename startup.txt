@@ -1,0 +1,5 @@
+cd "C:\Users\DELL\Desktop\git-hub-project\Main Project\Multi-Vendor-Marketplace\backend"
+npm run dev
+
+cd "C:\Users\DELL\Desktop\git-hub-project\Main Project\Multi-Vendor-Marketplace\frontend"
+npm run dev
