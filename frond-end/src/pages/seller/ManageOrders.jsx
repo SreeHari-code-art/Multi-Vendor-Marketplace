@@ -87,16 +87,16 @@ export const ManageOrders = () => {
     const norm = (status || 'pending').toLowerCase();
     switch (norm) {
       case 'delivered':
-        return <Badge variant="success" className="gap-1"><CheckCircle2 className="h-3 w-3" /><span>Delivered</span></Badge>;
+        return <Badge variant="success" className="gap-1"><CheckCircle2 className=" " /><span>Delivered</span></Badge>;
       case 'shipped':
-        return <Badge variant="info" className="gap-1"><Truck className="h-3 w-3" /><span>Shipped</span></Badge>;
+        return <Badge variant="info" className="gap-1"><Truck className=" " /><span>Shipped</span></Badge>;
       case 'processing':
-        return <Badge variant="primary" className="gap-1"><Clock className="h-3 w-3" /><span>Processing</span></Badge>;
+        return <Badge variant="primary" className="gap-1"><Clock className=" " /><span>Processing</span></Badge>;
       case 'cancelled':
-        return <Badge variant="danger" className="gap-1"><XCircle className="h-3 w-3" /><span>Cancelled</span></Badge>;
+        return <Badge variant="danger" className="gap-1"><XCircle className=" " /><span>Cancelled</span></Badge>;
       case 'pending':
       default:
-        return <Badge variant="warning" className="gap-1"><Clock className="h-3 w-3" /><span>Pending</span></Badge>;
+        return <Badge variant="warning" className="gap-1"><Clock className=" " /><span>Pending</span></Badge>;
     }
   };
 
@@ -106,36 +106,36 @@ export const ManageOrders = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Order Management</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="fs-2 fw-bold text-dark">Order Management</h1>
+          <p className="small text-secondary mt-1">
             Manage received orders and update delivery status for your customers
           </p>
         </div>
 
         {/* Status filter */}
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 shadow-sm">
-          <Filter className="h-4 w-4 text-gray-400" />
-          <span className="text-xs text-gray-500 font-medium">Status:</span>
+        <div className="d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-3 border border-secondary-subtle shadow-sm">
+          <Filter className="  text-secondary" />
+          <span className="small text-secondary fw-medium">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs font-semibold text-gray-900 bg-transparent border-none focus:outline-none capitalize cursor-pointer pr-4"
+            className="small fw-semibold text-dark bg-transparent border-0  text-capitalize  pe-3"
           >
             <option value="">All ({orders.length})</option>
             {statuses.map((st) => (
-              <option key={st} value={st} className="capitalize">{st}</option>
+              <option key={st} value={st} className="text-capitalize">{st}</option>
             ))}
           </select>
         </div>
@@ -147,15 +147,15 @@ export const ManageOrders = () => {
 
       {/* Orders list */}
       {filteredOrders.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 space-y-3">
-          <ShoppingBag className="h-12 w-12 text-gray-400 mx-auto" />
-          <h3 className="text-lg font-semibold text-gray-900">No orders found</h3>
-          <p className="text-xs text-gray-500 max-w-sm mx-auto">
+        <div className="text-center py-5 bg-white rounded-3 border border-secondary-subtle vstack gap-3">
+          <ShoppingBag className="  text-secondary mx-auto" />
+          <h3 className="fs-5 fw-semibold text-dark">No orders found</h3>
+          <p className="small text-secondary mw-100 mx-auto">
             No orders are registered with the selected status filter.
           </p>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="vstack gap-4">
           {filteredOrders.map((order) => {
             const customerName = order.user?.name || order.shippingAddress?.fullName || 'Cliente';
             const shipping = order.shippingAddress || {};
@@ -163,80 +163,80 @@ export const ManageOrders = () => {
             return (
               <div 
                 key={order._id}
-                className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+                className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden"
               >
                 {/* Cabecera de la Orden */}
-                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4 text-xs">
-                  <div className="flex flex-wrap items-center gap-6">
+                <div className="bg-body-tertiary px-4 py-3 border-bottom border-secondary-subtle d-flex flex-wrap align-items-center justify-content-between gap-3 small">
+                  <div className="d-flex flex-wrap align-items-center gap-4">
                     <div>
-                      <span className="text-gray-500 block">ID Pedido:</span>
-                      <span className="font-mono font-bold text-gray-900 uppercase">#{order._id.slice(-8)}</span>
+                      <span className="text-secondary d-block">ID Pedido:</span>
+                      <span className="font-monospace fw-bold text-dark text-uppercase">#{order._id.slice(-8)}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500 block">Fecha:</span>
-                      <span className="font-semibold text-gray-900">{formatDate(order.createdAt)}</span>
+                      <span className="text-secondary d-block">Fecha:</span>
+                      <span className="fw-semibold text-dark">{formatDate(order.createdAt)}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500 block">Total:</span>
-                      <span className="font-bold text-indigo-600">{formatCurrency(order.totalPrice)}</span>
+                      <span className="text-secondary d-block">Total:</span>
+                      <span className="fw-bold text-primary">{formatCurrency(order.totalPrice)}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="d-flex align-items-center gap-3">
                     {getStatusBadge(order.status)}
                     <button
                       onClick={() => handleOpenStatusModal(order)}
-                      className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors inline-flex items-center gap-1.5 shadow-sm"
+                      className="px-3 py-2 bg-primary-subtle bg-primary text-white rounded-3 fw-medium  d-inline-flex align-items-center gap-2 shadow-sm"
                     >
-                      <Edit3 className="h-3.5 w-3.5" />
+                      <Edit3 className=" " />
                       <span>Actualizar Estado</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Información de Envío y Artículos */}
-                <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                <div className="p-4 row row-cols-1 row-cols-md-3 g-4 align-items-start">
                   
                   {/* Datos del Cliente y Envío */}
-                  <div className="bg-gray-50/60 p-4 rounded-xl border border-gray-100 space-y-2 text-xs text-gray-600">
-                    <h4 className="font-semibold text-gray-900 uppercase tracking-wider text-[11px] mb-2">
+                  <div className="bg-body-tertiary p-3 rounded-3 border border-secondary-subtle vstack gap-2 small text-secondary">
+                    <h4 className="fw-semibold text-dark text-uppercase  small mb-2">
                       Información de Envío
                     </h4>
-                    <p className="flex items-center gap-2 font-medium text-gray-900">
-                      <User className="h-3.5 w-3.5 text-indigo-600" />
+                    <p className="d-flex align-items-center gap-2 fw-medium text-dark">
+                      <User className="  text-primary" />
                       <span>{customerName}</span>
                     </p>
-                    <p className="flex items-center gap-2">
-                      <Phone className="h-3.5 w-3.5 text-indigo-600" />
+                    <p className="d-flex align-items-center gap-2">
+                      <Phone className="  text-primary" />
                       <span>{shipping.phone || 'Teléfono no especificado'}</span>
                     </p>
-                    <p className="flex items-start gap-2">
-                      <MapPin className="h-3.5 w-3.5 text-indigo-600 shrink-0 mt-0.5" />
+                    <p className="d-flex align-items-start gap-2">
+                      <MapPin className="  text-primary flex-shrink-0 mt-1" />
                       <span>{shipping.address ? `${shipping.address}, ${shipping.city} (${shipping.postalCode})` : 'Dirección no registrada'}</span>
                     </p>
                   </div>
 
                   {/* Artículos de la Orden */}
-                  <div className="md:col-span-2 divide-y divide-gray-100">
-                    <h4 className="font-semibold text-gray-900 uppercase tracking-wider text-[11px] mb-2">
+                  <div className="col-md-12  ">
+                    <h4 className="fw-semibold text-dark text-uppercase  small mb-2">
                       Artículos Solicitados ({order.orderItems?.length || 0})
                     </h4>
                     {(order.orderItems || []).map((item, idx) => (
-                      <div key={idx} className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between gap-4 text-xs">
-                        <div className="flex items-center gap-3">
+                      <div key={idx} className="py-2 pt-0 pb-0 d-flex align-items-center justify-content-between gap-3 small">
+                        <div className="d-flex align-items-center gap-3">
                           {item.image ? (
-                            <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded-lg bg-gray-100 border shrink-0" />
+                            <img src={item.image} alt={item.name} className="  object-fit-cover rounded-3 bg-body-tertiary border flex-shrink-0" />
                           ) : (
-                            <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 shrink-0">
-                              <Package className="h-5 w-5" />
+                            <div className="  bg-body-tertiary rounded-3 d-flex align-items-center justify-content-center text-secondary flex-shrink-0">
+                              <Package className=" " />
                             </div>
                           )}
                           <div>
-                            <h5 className="font-semibold text-gray-900 line-clamp-1">{item.name}</h5>
-                            <span className="text-gray-500">Cant: <strong className="text-gray-700">{item.quantity}</strong> × {formatCurrency(item.price)}</span>
+                            <h5 className="fw-semibold text-dark ">{item.name}</h5>
+                            <span className="text-secondary">Cant: <strong className="text-body">{item.quantity}</strong> × {formatCurrency(item.price)}</span>
                           </div>
                         </div>
-                        <span className="font-bold text-gray-900 shrink-0">
+                        <span className="fw-bold text-dark flex-shrink-0">
                           {formatCurrency(item.price * item.quantity)}
                         </span>
                       </div>
@@ -259,32 +259,32 @@ export const ManageOrders = () => {
         title={`Actualizar Estado - Pedido #${selectedOrder?._id?.slice(-8)}`}
         size="sm"
       >
-        <form onSubmit={handleUpdateStatusSubmit} className="space-y-4">
-          <div className="form-group">
+        <form onSubmit={handleUpdateStatusSubmit} className="vstack gap-3">
+          <div className="mb-3">
             <label className="form-label">Nuevo Estado del Pedido</label>
             <select
               value={newStatus}
               onChange={(e) => setNewStatus(e.target.value)}
-              className="form-input capitalize"
+              className="form-control text-capitalize"
             >
               {statuses.map((st) => (
-                <option key={st} value={st} className="capitalize">{st}</option>
+                <option key={st} value={st} className="text-capitalize">{st}</option>
               ))}
             </select>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="d-flex justify-content-end gap-3 pt-3 border-top border-secondary-subtle">
             <button
               type="button"
               onClick={() => setIsStatusModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={isUpdating}
-              className="btn-primary text-xs py-2 px-5 shadow-sm"
+              className="btn btn-primary small py-2 px-3 shadow-sm"
             >
               {isUpdating ? 'Actualizando...' : 'Guardar Estado'}
             </button>

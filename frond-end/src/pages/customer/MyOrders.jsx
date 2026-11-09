@@ -51,28 +51,28 @@ export const MyOrders = () => {
       case 'delivered':
         return (
           <Badge variant="success" className="gap-1">
-            <CheckCircle2 className="h-3 w-3" />
+            <CheckCircle2 className=" " />
             <span>Delivered</span>
           </Badge>
         );
       case 'shipped':
         return (
           <Badge variant="info" className="gap-1">
-            <Truck className="h-3 w-3" />
+            <Truck className=" " />
             <span>Shipped</span>
           </Badge>
         );
       case 'processing':
         return (
           <Badge variant="primary" className="gap-1">
-            <Clock className="h-3 w-3" />
+            <Clock className=" " />
             <span>Processing</span>
           </Badge>
         );
       case 'cancelled':
         return (
           <Badge variant="danger" className="gap-1">
-            <XCircle className="h-3 w-3" />
+            <XCircle className=" " />
             <span>Cancelled</span>
           </Badge>
         );
@@ -80,7 +80,7 @@ export const MyOrders = () => {
       default:
         return (
           <Badge variant="warning" className="gap-1">
-            <Clock className="h-3 w-3" />
+            <Clock className=" " />
             <span>Pending</span>
           </Badge>
         );
@@ -89,25 +89,25 @@ export const MyOrders = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="fs-2 fw-bold text-dark">My Orders</h1>
+          <p className="small text-secondary mt-1">
             Check the status and details of all your purchases
           </p>
         </div>
-        <Link to="/products" className="btn-secondary inline-flex items-center gap-2 text-xs py-2.5 px-4 self-start sm:self-auto">
-          <ArrowLeft className="h-4 w-4" />
+        <Link to="/products" className="btn btn-secondary d-inline-flex align-items-center gap-2 small py-2 px-3 align-self-start align-self-sm-auto">
+          <ArrowLeft className=" " />
           <span>Go to Catalog</span>
         </Link>
       </div>
@@ -129,75 +129,75 @@ export const MyOrders = () => {
 
       {/* Listado de Pedidos */}
       {orders.length === 0 ? (
-        <div className="max-w-md mx-auto py-16 text-center space-y-4 bg-white rounded-2xl border border-gray-200 p-8">
-          <div className="w-16 h-16 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto">
-            <Package className="h-8 w-8" />
+        <div className="mw-100 mx-auto py-5 text-center vstack gap-3 bg-white rounded-3 border border-secondary-subtle p-5">
+          <div className="  bg-body-tertiary text-secondary rounded-pill d-flex align-items-center justify-content-center mx-auto">
+            <Package className=" " />
           </div>
-          <div className="space-y-1">
-            <h3 className="text-lg font-bold text-gray-900">You have no orders yet</h3>
-            <p className="text-xs text-gray-500">
+          <div className="vstack gap-1">
+            <h3 className="fs-5 fw-bold text-dark">You have no orders yet</h3>
+            <p className="small text-secondary">
               Once you place your first order, it will appear here.
             </p>
           </div>
-          <Link to="/products" className="btn-primary inline-flex items-center gap-2 text-xs py-2.5 px-5">
-            <ShoppingBag className="h-4 w-4" />
+          <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 small py-2 px-3">
+            <ShoppingBag className=" " />
             <span>Start Shopping</span>
           </Link>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="vstack gap-4">
           {orders.map((order) => (
             <div
               key={order._id}
-              className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden hover:border-gray-300 transition-colors"
+              className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden border-secondary "
             >
               {/* Order Card Header */}
-              <div className="bg-gray-50/80 px-6 py-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4 text-xs">
-                <div className="flex flex-wrap items-center gap-6">
+              <div className="bg-body-tertiary px-4 py-3 border-bottom border-secondary-subtle d-flex flex-wrap align-items-center justify-content-between gap-3 small">
+                <div className="d-flex flex-wrap align-items-center gap-4">
                   <div>
-                    <span className="text-gray-500 block">Order ID:</span>
-                    <span className="font-mono font-bold text-gray-900 uppercase">#{order._id.slice(-8)}</span>
+                    <span className="text-secondary d-block">Order ID:</span>
+                    <span className="font-monospace fw-bold text-dark text-uppercase">#{order._id.slice(-8)}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block">Date:</span>
-                    <span className="font-semibold text-gray-900">{formatDate(order.createdAt)}</span>
+                    <span className="text-secondary d-block">Date:</span>
+                    <span className="fw-semibold text-dark">{formatDate(order.createdAt)}</span>
                   </div>
                   <div>
-                    <span className="text-gray-500 block">Total:</span>
-                    <span className="font-bold text-indigo-600">{formatCurrency(order.totalPrice)}</span>
+                    <span className="text-secondary d-block">Total:</span>
+                    <span className="fw-bold text-primary">{formatCurrency(order.totalPrice)}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="d-flex align-items-center gap-3">
                   {getStatusBadge(order.status || order.orderStatus)}
                 </div>
               </div>
 
               {/* Lista compacta de artículos en la orden */}
-              <div className="p-6 divide-y divide-gray-100">
+              <div className="p-4  ">
                 {(order.orderItems || []).map((item, idx) => (
-                  <div key={idx} className="py-3 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
+                  <div key={idx} className="py-3 pt-0 pb-0 d-flex align-items-center justify-content-between gap-3">
+                    <div className="d-flex align-items-center gap-3">
                       {item.image ? (
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-14 h-14 object-cover rounded-lg bg-gray-100 shrink-0 border border-gray-100"
+                          className="  object-fit-cover rounded-3 bg-body-tertiary flex-shrink-0 border border-secondary-subtle"
                         />
                       ) : (
-                        <div className="w-14 h-14 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 shrink-0">
-                          <Package className="h-6 w-6" />
+                        <div className="  bg-body-tertiary rounded-3 d-flex align-items-center justify-content-center text-secondary flex-shrink-0">
+                          <Package className=" " />
                         </div>
                       )}
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-900 line-clamp-1">{item.name}</h4>
-                        <p className="text-xs text-gray-500 mt-0.5">
-                          Quantity: <strong className="text-gray-700">{item.quantity}</strong> × {formatCurrency(item.price)}
+                        <h4 className="small fw-semibold text-dark ">{item.name}</h4>
+                        <p className="small text-secondary mt-1">
+                          Quantity: <strong className="text-body">{item.quantity}</strong> × {formatCurrency(item.price)}
                         </p>
                       </div>
                     </div>
 
-                    <span className="text-sm font-bold text-gray-900 shrink-0">
+                    <span className="small fw-bold text-dark flex-shrink-0">
                       {formatCurrency(item.price * item.quantity)}
                     </span>
                   </div>
@@ -205,13 +205,13 @@ export const MyOrders = () => {
               </div>
 
               {/* Pie de la tarjeta */}
-              <div className="bg-gray-50/40 px-6 py-3 border-t border-gray-100 flex items-center justify-between text-xs">
-                <span className="text-gray-500">
-                  Método de pago: <strong className="text-gray-700 capitalize">{order.paymentMethod || 'Tarjeta'}</strong>
+              <div className="bg-body-tertiary px-4 py-3 border-top border-secondary-subtle d-flex align-items-center justify-content-between small">
+                <span className="text-secondary">
+                  Método de pago: <strong className="text-body text-capitalize">{order.paymentMethod || 'Tarjeta'}</strong>
                 </span>
-                <span className="text-indigo-600 font-semibold inline-flex items-center gap-1 group cursor-pointer">
+                <span className="text-primary fw-semibold d-inline-flex align-items-center gap-1  ">
                   <span>Ver detalles completos</span>
-                  <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="   " />
                 </span>
               </div>
             </div>

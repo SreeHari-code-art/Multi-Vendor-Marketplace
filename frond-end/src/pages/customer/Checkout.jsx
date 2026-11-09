@@ -107,18 +107,18 @@ export const Checkout = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-6">
-        <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto">
-          <ShoppingBag className="h-10 w-10" />
+      <div className="mw-100 mx-auto px-3 py-5 text-center vstack gap-4">
+        <div className="  bg-primary-subtle text-primary rounded-pill d-flex align-items-center justify-content-center mx-auto">
+          <ShoppingBag className=" " />
         </div>
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900">No products to process</h2>
-          <p className="text-sm text-gray-500 max-w-sm mx-auto">
+        <div className="vstack gap-2">
+          <h2 className="fs-3 fw-bold text-dark">No products to process</h2>
+          <p className="small text-secondary mw-100 mx-auto">
             Your cart is empty. Add items before proceeding to payment.
           </p>
         </div>
-        <Link to="/products" className="btn-primary inline-flex items-center gap-2 px-6 py-3">
-          <ArrowLeft className="h-4 w-4" />
+        <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3">
+          <ArrowLeft className=" " />
           <span>Back to Catalog</span>
         </Link>
       </div>
@@ -126,16 +126,16 @@ export const Checkout = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Header */}
       <div>
-        <Link to="/cart" className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors mb-3">
-          <ArrowLeft className="h-4 w-4" />
+        <Link to="/cart" className="d-inline-flex align-items-center gap-2 small fw-medium text-secondary text-primary  mb-3">
+          <ArrowLeft className=" " />
           <span>Back to Cart</span>
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">Checkout</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="fs-2 fw-bold text-dark">Checkout</h1>
+        <p className="small text-secondary mt-1">
           Enter your shipping details and confirm your payment method
         </p>
       </div>
@@ -144,27 +144,27 @@ export const Checkout = () => {
         <Alert type="danger" message={error} onClose={() => setError(null)} />
       )}
 
-      <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <form onSubmit={handlePlaceOrder} className="row row-cols-1 row-cols-lg-3 g-5 align-items-start">
         
         {/* ==========================================
             1. Formulario de Envío y Pago
             ========================================== */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="col-lg-8 vstack gap-5">
           
           {/* Section: Shipping Address */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-6">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 border-b pb-4">
-              <Truck className="h-5 w-5 text-indigo-600" />
+          <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-4">
+            <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2 border-bottom pb-3">
+              <Truck className="  text-primary" />
               <span>Shipping Address</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="row row-cols-1 row-cols-sm-2 g-3">
               
-              <div className="form-group">
+              <div className="mb-3">
                 <label htmlFor="fullName" className="form-label">Full Name</label>
-                <div className="relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <User className="h-4 w-4" />
+                <div className="position-relative rounded-2 shadow-sm">
+                  <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                    <User className=" " />
                   </div>
                   <input
                     id="fullName"
@@ -174,17 +174,17 @@ export const Checkout = () => {
                     value={fullName}
                     onChange={handleChange}
                     placeholder="John Smith"
-                    className="form-input pl-10"
+                    className="form-control ps-5"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="mb-3">
                 <label htmlFor="phone" className="form-label">Contact Phone</label>
-                <div className="relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <Phone className="h-4 w-4" />
+                <div className="position-relative rounded-2 shadow-sm">
+                  <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                    <Phone className=" " />
                   </div>
                   <input
                     id="phone"
@@ -194,17 +194,17 @@ export const Checkout = () => {
                     value={phone}
                     onChange={handleChange}
                     placeholder="+91 98765 43210"
-                    className="form-input pl-10"
+                    className="form-control ps-5"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="form-group sm:col-span-2">
+              <div className="mb-3 col-sm-12">
                 <label htmlFor="address" className="form-label">Address (Street, house no., apt)</label>
-                <div className="relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <MapPin className="h-4 w-4" />
+                <div className="position-relative rounded-2 shadow-sm">
+                  <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                    <MapPin className=" " />
                   </div>
                   <input
                     id="address"
@@ -214,13 +214,13 @@ export const Checkout = () => {
                     value={address}
                     onChange={handleChange}
                     placeholder="Tech Park Street, Block A"
-                    className="form-input pl-10"
+                    className="form-control ps-5"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="mb-3">
                 <label htmlFor="city" className="form-label">City</label>
                 <input
                   id="city"
@@ -230,12 +230,12 @@ export const Checkout = () => {
                   value={city}
                   onChange={handleChange}
                   placeholder="Bangalore"
-                  className="form-input"
+                  className="form-control"
                   disabled={isLoading}
                 />
               </div>
 
-              <div className="form-group">
+              <div className="mb-3">
                 <label htmlFor="postalCode" className="form-label">Postal Code</label>
                 <input
                   id="postalCode"
@@ -245,7 +245,7 @@ export const Checkout = () => {
                   value={postalCode}
                   onChange={handleChange}
                   placeholder="560001"
-                  className="form-input"
+                  className="form-control"
                   disabled={isLoading}
                 />
               </div>
@@ -254,15 +254,15 @@ export const Checkout = () => {
           </div>
 
           {/* Section: Payment Method */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 border-b pb-4">
-              <CreditCard className="h-5 w-5 text-indigo-600" />
+          <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-3">
+            <h3 className="fs-5 fw-bold text-dark d-flex align-items-center gap-2 border-bottom pb-3">
+              <CreditCard className="  text-primary" />
               <span>Payment Method</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                paymentMethod === 'CARD' ? 'border-indigo-600 bg-indigo-50/50 ring-2 ring-indigo-600/20' : 'border-gray-200 hover:bg-gray-50'
+            <div className="row row-cols-1 row-cols-sm-2 g-3">
+              <label className={`d-flex align-items-center gap-3 p-3 rounded-3 border   ${
+                paymentMethod === 'CARD' ? 'border-primary-subtle bg-primary-subtle' : 'border-secondary-subtle bg-body-tertiary'
               }`}>
                 <input
                   type="radio"
@@ -270,16 +270,16 @@ export const Checkout = () => {
                   value="CARD"
                   checked={paymentMethod === 'CARD'}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="text-indigo-600 focus:ring-indigo-500"
+                  className="text-primary "
                 />
                 <div>
-                  <span className="block text-sm font-semibold text-gray-900">Credit / Debit Card</span>
-                  <span className="text-xs text-gray-500">Secure online payment</span>
+                  <span className="d-block small fw-semibold text-dark">Credit / Debit Card</span>
+                  <span className="small text-secondary">Secure online payment</span>
                 </div>
               </label>
 
-              <label className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                paymentMethod === 'COD' ? 'border-indigo-600 bg-indigo-50/50 ring-2 ring-indigo-600/20' : 'border-gray-200 hover:bg-gray-50'
+              <label className={`d-flex align-items-center gap-3 p-3 rounded-3 border   ${
+                paymentMethod === 'COD' ? 'border-primary-subtle bg-primary-subtle' : 'border-secondary-subtle bg-body-tertiary'
               }`}>
                 <input
                   type="radio"
@@ -287,11 +287,11 @@ export const Checkout = () => {
                   value="COD"
                   checked={paymentMethod === 'COD'}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="text-indigo-600 focus:ring-indigo-500"
+                  className="text-primary "
                 />
                 <div>
-                  <span className="block text-sm font-semibold text-gray-900">Cash on Delivery</span>
-                  <span className="text-xs text-gray-500">Pay when your order arrives</span>
+                  <span className="d-block small fw-semibold text-dark">Cash on Delivery</span>
+                  <span className="small text-secondary">Pay when your order arrives</span>
                 </div>
               </label>
             </div>
@@ -302,57 +302,57 @@ export const Checkout = () => {
         {/* ==========================================
             2. Order Summary and Final Action
             ========================================== */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-6 sticky top-24">
-          <h3 className="text-lg font-bold text-gray-900 border-b pb-4">Order Summary</h3>
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-4 sticky-top ">
+          <h3 className="fs-5 fw-bold text-dark border-bottom pb-3">Order Summary</h3>
 
           {/* Compact item list */}
-          <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+          <div className="vstack gap-3 overflow-auto overflow-y-auto pe-1">
             {cartItems.map((item) => (
-              <div key={item._id} className="flex items-center justify-between text-xs gap-3">
-                <div className="flex items-center gap-2 truncate">
-                  <span className="font-bold text-gray-500">{item.quantity}x</span>
-                  <span className="text-gray-700 truncate">{item.name}</span>
+              <div key={item._id} className="d-flex align-items-center justify-content-between small gap-3">
+                <div className="d-flex align-items-center gap-2 text-truncate">
+                  <span className="fw-bold text-secondary">{item.quantity}x</span>
+                  <span className="text-body text-truncate">{item.name}</span>
                 </div>
-                <span className="font-semibold text-gray-900 shrink-0">
+                <span className="fw-semibold text-dark flex-shrink-0">
                   {formatCurrency(item.price * item.quantity)}
                 </span>
               </div>
             ))}
           </div>
 
-          <div className="border-t border-gray-200 pt-4 space-y-2.5 text-sm">
-            <div className="flex items-center justify-between text-gray-600">
+          <div className="border-top border-secondary-subtle pt-3 vstack gap-2 small">
+            <div className="d-flex align-items-center justify-content-between text-secondary">
               <span>Subtotal</span>
-              <span className="font-semibold text-gray-900">{formatCurrency(totalAmount)}</span>
+              <span className="fw-semibold text-dark">{formatCurrency(totalAmount)}</span>
             </div>
-            <div className="flex items-center justify-between text-gray-600">
+            <div className="d-flex align-items-center justify-content-between text-secondary">
               <span>Shipping</span>
-              <span className="text-emerald-600 font-semibold">FREE</span>
+              <span className="text-success fw-semibold">FREE</span>
             </div>
 
-            <div className="border-t border-gray-200 pt-3 flex items-center justify-between">
-              <span className="text-base font-bold text-gray-900">Total to Pay</span>
-              <span className="text-xl font-extrabold text-indigo-600">{formatCurrency(totalAmount)}</span>
+            <div className="border-top border-secondary-subtle pt-3 d-flex align-items-center justify-content-between">
+              <span className=" fw-bold text-dark">Total to Pay</span>
+              <span className="fs-4 fw-bolder text-primary">{formatCurrency(totalAmount)}</span>
             </div>
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full btn-primary py-4 flex items-center justify-center gap-2 text-sm shadow-md"
+            className="w-100 btn btn-primary py-3 d-flex align-items-center justify-content-center gap-2 small shadow"
           >
             {isLoading ? (
               <Spinner size="sm" className="text-white" />
             ) : (
               <>
-                <CheckCircle2 className="h-5 w-5" />
+                <CheckCircle2 className=" " />
                 <span>Place Order</span>
               </>
             )}
           </button>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-2 border-t border-gray-100">
-            <ShieldCheck className="h-4 w-4 text-emerald-600" />
+          <div className="d-flex align-items-center justify-content-center gap-2 small text-secondary pt-2 border-top border-secondary-subtle">
+            <ShieldCheck className="  text-success" />
             <span>Secure encrypted transaction</span>
           </div>
 

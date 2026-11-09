@@ -30,7 +30,7 @@ export const ShopDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
@@ -38,11 +38,11 @@ export const ShopDetails = () => {
 
   if (error || !data?.shop) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mw-100 mx-auto px-3 py-5">
         <Alert type="danger" title="Store unavailable" message={error || 'This store could not be found.'} />
-        <div className="mt-6">
-          <Link to="/shops" className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700">
-            <ArrowLeft className="h-4 w-4" />
+        <div className="mt-4">
+          <Link to="/shops" className="d-inline-flex align-items-center gap-2 text-primary text-primary">
+            <ArrowLeft className=" " />
             Back to stores
           </Link>
         </div>
@@ -53,90 +53,90 @@ export const ShopDetails = () => {
   const { shop, products } = data;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mb-8">
-        <Link to="/shops" className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-indigo-600">
-          <ArrowLeft className="h-4 w-4" />
+    <div className="container mx-auto px-3 py-5 px-sm-4 px-lg-5">
+      <div className="mb-5">
+        <Link to="/shops" className="d-inline-flex align-items-center gap-2 small fw-medium text-secondary text-primary">
+          <ArrowLeft className=" " />
           Back to stores
         </Link>
       </div>
 
-      <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-        <div className="h-52 overflow-hidden bg-gray-100">
+      <div className="overflow-hidden rounded-3 border border-secondary-subtle bg-white shadow-sm">
+        <div className=" overflow-hidden bg-body-tertiary">
           <img
             src={shop.banner || shop.logo || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80'}
             alt={shop.name}
-            className="h-full w-full object-cover"
+            className="h-100 w-100 object-fit-cover"
           />
         </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-100 text-indigo-700">
-                <Store className="h-7 w-7" />
+        <div className="p-4 p-sm-5">
+          <div className="d-flex flex-column gap-3 flex-sm-row align-items-sm-center justify-content-sm-between">
+            <div className="d-flex align-items-center gap-3">
+              <div className="d-flex   align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary">
+                <Store className=" " />
               </div>
               <div>
-                <h1 className="text-3xl font-extrabold text-gray-900">{shop.name}</h1>
-                <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
-                  <MapPin className="h-4 w-4 text-indigo-500" />
+                <h1 className="fs-2 fw-bolder text-dark">{shop.name}</h1>
+                <div className="mt-1 d-flex align-items-center gap-2 small text-secondary">
+                  <MapPin className="  text-primary" />
                   <span>{shop.address?.city || 'Location unavailable'}, {shop.address?.country || ''}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="mt-6 text-gray-600">{shop.description}</p>
+          <p className="mt-4 text-secondary">{shop.description}</p>
         </div>
       </div>
 
-      <div className="mt-10">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">Store Products</h2>
-          <span className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-700">
-            <PackageCheck className="h-4 w-4" />
+      <div className="mt-5">
+        <div className="mb-4 d-flex align-items-center justify-content-between">
+          <h2 className="fs-3 fw-bold text-dark">Store Products</h2>
+          <span className="d-inline-flex align-items-center gap-2 rounded-pill bg-primary-subtle px-3 py-2 small fw-medium text-primary">
+            <PackageCheck className=" " />
             {products?.length || 0} items
           </span>
         </div>
 
         {(!products || products.length === 0) ? (
-          <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-500">
+          <div className="rounded-3 border border border-secondary-subtle border-secondary-subtle bg-white p-5 text-center text-secondary">
             This store does not have active products yet.
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="row g-4 row-cols-md-2 row-cols-xl-3">
             {products.map((product) => (
               <Link
                 key={product._id}
                 to={`/products/${product._id}`}
-                className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="overflow-hidden rounded-3 border border-secondary-subtle bg-white shadow-sm   shadow"
               >
-                <div className="h-56 overflow-hidden bg-gray-100">
+                <div className=" overflow-hidden bg-body-tertiary">
                   <img
                     src={product.images?.[0] || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80'}
                     alt={product.name}
-                    className="h-full w-full object-cover"
+                    className="h-100 w-100 object-fit-cover"
                   />
                 </div>
 
-                <div className="p-5">
-                  <div className="mb-2 flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-gray-600">
+                <div className="p-3">
+                  <div className="mb-2 d-flex align-items-center justify-content-between gap-3">
+                    <span className="rounded-pill bg-body-tertiary px-2 py-1 small fw-semibold text-uppercase  text-secondary">
                       {product.category || 'General'}
                     </span>
                     {product.stock > 0 ? (
-                      <span className="text-xs font-medium text-emerald-600">In stock</span>
+                      <span className="small fw-medium text-success">In stock</span>
                     ) : (
-                      <span className="text-xs font-medium text-rose-600">Sold out</span>
+                      <span className="small fw-medium text-danger">Sold out</span>
                     )}
                   </div>
 
-                  <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
-                  <p className="mt-2 line-clamp-3 text-sm text-gray-600">{product.description}</p>
+                  <h3 className="fs-5 fw-bold text-dark">{product.name}</h3>
+                  <p className="mt-2  small text-secondary">{product.description}</p>
 
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-xl font-extrabold text-gray-900">{formatCurrency(product.price)}</span>
-                    <span className="text-sm font-medium text-indigo-600">View details</span>
+                  <div className="mt-3 d-flex align-items-center justify-content-between">
+                    <span className="fs-4 fw-bolder text-dark">{formatCurrency(product.price)}</span>
+                    <span className="small fw-medium text-primary">View details</span>
                   </div>
                 </div>
               </Link>

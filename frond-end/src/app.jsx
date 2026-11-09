@@ -46,18 +46,18 @@ import { AlertCircle, ArrowLeft } from 'lucide-react';
 
 const NotFound = () => {
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 space-y-6">
-      <div className="w-20 h-20 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center">
-        <AlertCircle className="h-10 w-10" />
+    <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center px-3 vstack gap-4">
+      <div className="  bg-danger-subtle text-danger rounded-pill d-flex align-items-center justify-content-center">
+        <AlertCircle className=" " />
       </div>
-      <div className="space-y-2">
-      <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">404 - Page not found</h1>
-        <p className="text-sm text-gray-500 max-w-sm mx-auto">
+      <div className="vstack gap-2">
+      <h1 className="fs-1 fw-bolder text-dark ">404 - Page not found</h1>
+        <p className="small text-secondary mw-100 mx-auto">
         Sorry, the page you are looking for does not exist, has moved, or you do not have permission to access it.
         </p>
       </div>
-      <Link to="/" className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm shadow-sm">
-        <ArrowLeft className="h-4 w-4" />
+      <Link to="/" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3 small shadow-sm">
+        <ArrowLeft className=" " />
       <span>Back to Home</span>
       </Link>
     </div>
@@ -67,13 +67,13 @@ const NotFound = () => {
 export const App = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+      <div className="min-vh-100 d-flex flex-column bg-body-tertiary text-dark    ">
         
         {/* Global Navigation Bar */}
         <Navbar />
 
         {/* Main Content with Routing */}
-        <main className="flex-1">
+        <main className="flex-fill">
           <Routes>
             
             {/* ==========================================

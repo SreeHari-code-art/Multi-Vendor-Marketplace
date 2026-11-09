@@ -63,7 +63,7 @@ export const ProductDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
@@ -71,15 +71,15 @@ export const ProductDetails = () => {
 
   if (isError || !product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5">
         <Alert
           type="danger"
           title="Error loading product"
           message={message || 'The requested product information could not be found.'}
         />
-        <div className="mt-6">
-          <Link to="/products" className="btn-secondary inline-flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" />
+        <div className="mt-4">
+          <Link to="/products" className="btn btn-secondary d-inline-flex align-items-center gap-2">
+            <ArrowLeft className=" " />
             <span>Back to Catalog</span>
           </Link>
         </div>
@@ -92,34 +92,34 @@ export const ProductDetails = () => {
     : ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Back button */}
       <div>
         <Link 
           to="/products" 
-          className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors"
+          className="d-inline-flex align-items-center gap-2 small fw-medium text-secondary text-primary "
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className=" " />
           <span>Back to catalog</span>
         </Link>
       </div>
 
       {/* Grid Principal: Galería + Información */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div className="row row-cols-1 row-cols-lg-2 g-5 align-items-start">
         
         {/* ==========================================
             1. Galería de Imágenes
             ========================================== */}
-        <div className="space-y-4">
-          <div className="aspect-square w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 relative">
+        <div className="vstack gap-3">
+          <div className="ratio ratio-1x1 w-100 rounded-3 overflow-hidden bg-body-tertiary border border-secondary-subtle position-relative">
             <img 
               src={images[selectedImage]} 
               alt={product.name} 
-              className="h-full w-full object-cover object-center"
+              className="h-100 w-100 object-fit-cover "
             />
             {product.stock <= 0 && (
-              <span className="absolute top-4 left-4 bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="position-absolute   bg-danger-subtle text-white small fw-bold px-3 py-1 rounded-pill text-uppercase ">
                 Sold Out
               </span>
             )}
@@ -127,16 +127,16 @@ export const ProductDetails = () => {
 
           {/* Miniaturas de la galería */}
           {images.length > 1 && (
-            <div className="flex items-center gap-3 overflow-x-auto pb-2">
+            <div className="d-flex align-items-center gap-3 overflow-x-auto pb-2">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`relative aspect-square w-20 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${
-                    selectedImage === idx ? 'border-indigo-600 ring-2 ring-indigo-600/20' : 'border-gray-200 hover:border-gray-300'
+                  className={`position-relative ratio ratio-1x1  rounded-3 overflow-hidden border-2  flex-shrink-0 ${
+                    selectedImage === idx ? 'border-primary-subtle  ' : 'border-secondary-subtle border-secondary'
                   }`}
                 >
-                  <img src={img} alt="" className="h-full w-full object-cover" />
+                  <img src={img} alt="" className="h-100 w-100 object-fit-cover" />
                 </button>
               ))}
             </div>
@@ -146,42 +146,42 @@ export const ProductDetails = () => {
         {/* ==========================================
             2. Detalles del Producto y Acciones
             ========================================== */}
-        <div className="space-y-6">
+        <div className="vstack gap-4">
           
           {/* Categoría e Identificador de Tienda */}
-          <div className="flex items-center justify-between text-xs">
-            <span className="capitalize bg-indigo-50 text-indigo-700 font-semibold px-3 py-1 rounded-full">
+          <div className="d-flex align-items-center justify-content-between small">
+            <span className="text-capitalize bg-primary-subtle text-primary fw-semibold px-3 py-1 rounded-pill">
               {product.category || 'General'}
             </span>
             <Link 
               to={`/shops/${product.shop?._id || ''}`} 
-              className="flex items-center gap-1.5 text-gray-600 hover:text-indigo-600 font-medium"
+              className="d-flex align-items-center gap-2 text-secondary text-primary fw-medium"
             >
-              <Store className="h-4 w-4 text-indigo-600" />
+              <Store className="  text-primary" />
               <span>Sold by: <strong>{product.shop?.name || 'Official Store'}</strong></span>
             </Link>
           </div>
 
           {/* Título */}
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+          <h1 className="fs-3 fs-2 fw-bold text-dark lh-sm">
             {product.name}
           </h1>
 
           {/* Precios */}
-          <div className="flex items-baseline gap-3">
-            <span className="text-3xl font-extrabold text-gray-900">
+          <div className="d-flex align-items-baseline gap-3">
+            <span className="fs-2 fw-bolder text-dark">
               {formatCurrency(product.price)}
             </span>
             {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="text-base text-gray-400 line-through">
+              <span className=" text-secondary text-decoration-line-through">
                 {formatCurrency(product.compareAtPrice)}
               </span>
             )}
           </div>
 
           {/* Inventory Status */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-gray-700">Availability:</span>
+          <div className="d-flex align-items-center gap-2">
+            <span className="small fw-semibold text-body">Availability:</span>
             {product.stock > 0 ? (
               <Badge variant="success">In Stock ({product.stock} available)</Badge>
             ) : (
@@ -190,53 +190,53 @@ export const ProductDetails = () => {
           </div>
 
           {/* Description */}
-          <div className="border-t border-b border-gray-200 py-4 space-y-2">
-            <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Product Description</h3>
-            <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+          <div className="border-top border-bottom border-secondary-subtle py-3 vstack gap-2">
+            <h3 className="small fw-bold text-dark text-uppercase ">Product Description</h3>
+            <p className="small text-secondary lh-lg text-break">
               {product.description || 'No detailed description provided.'}
             </p>
           </div>
 
           {/* Quantity Selector and Purchase Buttons */}
           {product.stock > 0 && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <span className="text-xs font-semibold text-gray-700">Quantity:</span>
-                <div className="flex items-center border border-gray-300 rounded-lg bg-white">
+            <div className="vstack gap-3">
+              <div className="d-flex align-items-center gap-3">
+                <span className="small fw-semibold text-body">Quantity:</span>
+                <div className="d-flex align-items-center border border-secondary-subtle rounded-3 bg-white">
                   <button
                     onClick={() => handleQuantityChange('decrement')}
                     disabled={quantity <= 1}
-                    className="p-2 text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition-colors"
+                    className="p-2 text-secondary bg-secondary-subtle  "
                   >
-                    <Minus className="h-4 w-4" />
+                    <Minus className=" " />
                   </button>
-                  <span className="px-4 py-1 text-sm font-bold text-gray-900 min-w-[3rem] text-center">
+                  <span className="px-3 py-1 small fw-bold text-dark  text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => handleQuantityChange('increment')}
                     disabled={quantity >= product.stock}
-                    className="p-2 text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition-colors"
+                    className="p-2 text-secondary bg-secondary-subtle  "
                   >
-                    <Plus className="h-4 w-4" />
+                    <Plus className=" " />
                   </button>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 pt-2">
+              <div className="d-flex align-items-center gap-3 pt-2">
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 btn-primary py-3.5 flex items-center justify-center gap-2 text-sm shadow-md"
+                  className="flex-fill btn btn-primary py-3 d-flex align-items-center justify-content-center gap-2 small shadow"
                 >
                   {addedSuccess ? (
                     <>
-                      <Check className="h-5 w-5" />
+                      <Check className=" " />
                       <span>Added to Cart!</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingBag className="h-5 w-5" />
+                      <ShoppingBag className=" " />
                       <span>Add to Cart</span>
                     </>
                   )}
@@ -244,31 +244,31 @@ export const ProductDetails = () => {
 
                 <button
                   onClick={handleToggleWishlist}
-                  className={`p-3.5 rounded-xl border transition-all ${
+                  className={`p-3 rounded-3 border  ${
                     isWishlisted 
-                      ? 'bg-rose-50 border-rose-200 text-rose-600' 
-                      : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                      ? 'bg-danger-subtle border-primary-subtle text-danger'
+                      : 'bg-white border-secondary-subtle text-secondary bg-body-tertiary'
                   }`}
                   title={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
                 >
-                  <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-rose-600' : ''}`} />
+                  <Heart className={`  ${isWishlisted ? '' : ''}`} />
                 </button>
               </div>
             </div>
           )}
 
           {/* Guarantees and Benefits */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-200 text-xs text-gray-600">
-            <div className="flex items-center gap-2.5">
-              <Truck className="h-5 w-5 text-indigo-600 shrink-0" />
+          <div className="row row-cols-1 row-cols-sm-3 g-3 pt-3 border-top border-secondary-subtle small text-secondary">
+            <div className="d-flex align-items-center gap-2">
+              <Truck className="  text-primary flex-shrink-0" />
               <span>Shipping guaranteed by the seller</span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <ShieldCheck className="h-5 w-5 text-indigo-600 shrink-0" />
+            <div className="d-flex align-items-center gap-2">
+              <ShieldCheck className="  text-primary flex-shrink-0" />
               <span>Purchase protected by MultiMarket</span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <RotateCcw className="h-5 w-5 text-indigo-600 shrink-0" />
+            <div className="d-flex align-items-center gap-2">
+              <RotateCcw className="  text-primary flex-shrink-0" />
               <span>Simple returns</span>
             </div>
           </div>

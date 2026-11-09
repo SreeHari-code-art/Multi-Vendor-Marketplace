@@ -34,47 +34,47 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="sticky-top top-0  bg-white border-bottom border-secondary-subtle shadow-sm">
+      <div className="container mx-auto px-3 px-sm-4 px-lg-5">
+        <div className="d-flex align-items-center justify-content-between ">
           
           {/* Logo del Marketplace */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                <Store className="h-5 w-5" />
+          <div className="d-flex align-items-center">
+            <Link to="/" className="d-flex align-items-center gap-2 ">
+              <div className="rounded-3 bg-primary p-2 d-flex align-items-center justify-content-center text-white shadow">
+                <Store className=" " />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-700 bg-clip-text text-transparent">
+              <span className="fs-4 fw-bold     text-primary">
                 MultiMarket
               </span>
             </Link>
           </div>
 
           {/* Enlaces de navegación principales (Escritorio) */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">
+          <nav className="d-none d-md-flex align-items-center gap-4">
+            <Link to="/" className="small fw-medium text-body text-primary ">
               Home
             </Link>
-            <Link to="/products" className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">
+            <Link to="/products" className="small fw-medium text-body text-primary ">
               Catalog
             </Link>
-            <Link to="/shops" className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">
+            <Link to="/shops" className="small fw-medium text-body text-primary ">
               Stores
             </Link>
           </nav>
 
           {/* Acciones de usuario y accesos rápidos (Escritorio) */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="d-none d-md-flex align-items-center gap-3">
             
             {/* Lista de Deseos (Wishlist) */}
             <Link 
               to="/wishlist" 
-              className="relative p-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition-colors"
+              className="position-relative p-2 text-secondary text-primary bg-secondary-subtle rounded-pill "
               title="Wishlist"
             >
-              <Heart className="h-5 w-5" />
+              <Heart className=" " />
               {wishlistCount > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-rose-500 rounded-full shadow-sm">
+                <span className="position-absolute top-0 end-0 badge text-bg-danger rounded-pill">
                   {wishlistCount}
                 </span>
               )}
@@ -83,29 +83,29 @@ export const Navbar = () => {
             {/* Carrito de Compras */}
             <Link 
               to="/cart" 
-              className="relative p-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition-colors"
+              className="position-relative p-2 text-secondary text-primary bg-secondary-subtle rounded-pill "
               title="Shopping cart"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className=" " />
               {cartQuantity > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-indigo-600 rounded-full shadow-sm">
+                <span className="position-absolute top-0 end-0 badge text-bg-primary rounded-pill">
                   {cartQuantity}
                 </span>
               )}
             </Link>
 
-            <div className="h-6 w-px bg-gray-200" />
+            <div className="  bg-body-tertiary" />
 
             {/* Enlaces de Autenticación y Paneles según Rol */}
             {isAuthenticated && user ? (
-              <div className="flex items-center gap-3">
+              <div className="d-flex align-items-center gap-3">
                 {/* Enlace condicional según el rol */}
                 {user.role === 'admin' && (
                   <Link 
                     to="/admin/dashboard" 
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition-colors"
+                    className="d-flex align-items-center gap-2 px-3 py-2 small fw-medium text-primary bg-primary-subtle border border-primary-subtle rounded-3 bg-primary-subtle "
                   >
-                    <ShieldCheck className="h-4 w-4" />
+                    <ShieldCheck className=" " />
                     Admin
                   </Link>
                 )}
@@ -113,9 +113,9 @@ export const Navbar = () => {
                 {user.role === 'seller' && (
                   <Link 
                     to="/seller/dashboard" 
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors"
+                    className="d-flex align-items-center gap-2 px-3 py-2 small fw-medium text-primary bg-primary-subtle border border-primary-subtle rounded-3 bg-primary-subtle "
                   >
-                    <LayoutDashboard className="h-4 w-4" />
+                    <LayoutDashboard className=" " />
                     My Store
                   </Link>
                 )}
@@ -123,39 +123,39 @@ export const Navbar = () => {
                 {user.role === 'customer' && (
                   <Link 
                     to="/customer/orders" 
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors"
+                    className="d-flex align-items-center gap-2 px-3 py-2 small fw-medium text-body bg-body-tertiary border border-secondary-subtle rounded-3 bg-secondary-subtle "
                   >
-                    <Package className="h-4 w-4" />
+                    <Package className=" " />
                     My Orders
                   </Link>
                 )}
 
                 {/* Menú de Perfil y Salida */}
-                <div className="flex items-center gap-2 pl-2">
-                  <div className="text-right hidden lg:block">
-                    <p className="text-xs font-semibold text-gray-900">{user.name}</p>
-                    <p className="text-[10px] text-gray-500 capitalize">{user.role}</p>
+                <div className="d-flex align-items-center gap-2 ps-2">
+                  <div className="text-end d-none d-lg-block">
+                    <p className="small fw-semibold text-dark">{user.name}</p>
+                    <p className="small text-secondary text-capitalize">{user.role}</p>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="p-2 text-gray-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                    className="p-2 text-secondary text-danger bg-danger-subtle rounded-3 "
                     title="Log out"
                   >
-                    <LogOut className="h-5 w-5" />
+                    <LogOut className=" " />
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="d-flex align-items-center gap-2">
                 <Link 
                   to="/login" 
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+                  className="px-3 py-2 small fw-medium text-body text-primary "
                 >
                   Log In
                 </Link>
                 <Link 
                   to="/register" 
-                  className="btn-primary text-sm py-2"
+                  className="btn btn-primary small py-2"
                 >
                   Sign Up
                 </Link>
@@ -164,11 +164,11 @@ export const Navbar = () => {
           </div>
 
           {/* Botón de Menú Móvil */}
-          <div className="flex md:hidden items-center gap-3">
-            <Link to="/cart" className="relative p-2 text-gray-600 hover:text-indigo-600">
-              <ShoppingBag className="h-5 w-5" />
+          <div className="d-flex d-md-none align-items-center gap-3">
+            <Link to="/cart" className="position-relative p-2 text-secondary text-primary">
+              <ShoppingBag className=" " />
               {cartQuantity > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold text-white bg-indigo-600 rounded-full">
+                <span className="position-absolute top-0 end-0 d-inline-flex align-items-center justify-content-center px-2 py-1 small fw-bold text-white bg-primary-subtle rounded-pill">
                   {cartQuantity}
                 </span>
               )}
@@ -176,9 +176,9 @@ export const Navbar = () => {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 focus:outline-none"
+              className="p-2 text-secondary text-dark rounded-3 bg-secondary-subtle "
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? <X className=" " /> : <Menu className=" " />}
             </button>
           </div>
 
@@ -187,54 +187,54 @@ export const Navbar = () => {
 
       {/* Menú Desplegable Móvil */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
-          <nav className="space-y-1">
+        <div className="d-md-none bg-white border-bottom border-secondary-subtle px-3 pt-2 pb-4 vstack gap-3">
+          <nav className="vstack gap-1">
             <Link 
               to="/" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50"
+              className="d-block px-3 py-2 rounded-3  fw-medium text-body bg-body-tertiary"
             >
               Home
             </Link>
             <Link 
               to="/products" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50"
+              className="d-block px-3 py-2 rounded-3  fw-medium text-body bg-body-tertiary"
             >
               Catalog
             </Link>
             <Link 
               to="/shops" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50"
+              className="d-block px-3 py-2 rounded-3  fw-medium text-body bg-body-tertiary"
             >
               Stores
             </Link>
             <Link 
               to="/wishlist" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50"
+              className="d-flex align-items-center justify-content-between px-3 py-2 rounded-3  fw-medium text-body bg-body-tertiary"
             >
               <span>Wishlist</span>
-              <span className="bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full text-xs font-bold">
+              <span className="bg-danger-subtle text-danger px-2 py-1 rounded-pill small fw-bold">
                 {wishlistCount}
               </span>
             </Link>
           </nav>
 
-          <div className="border-t border-gray-200 pt-4 space-y-2">
+          <div className="border-top border-secondary-subtle pt-3 vstack gap-2">
             {isAuthenticated && user ? (
               <>
                 <div className="px-3 py-2">
-                  <p className="text-sm font-bold text-gray-900">{user.name}</p>
-                  <p className="text-xs text-gray-500 capitalize">{user.role}</p>
+                  <p className="small fw-bold text-dark">{user.name}</p>
+                  <p className="small text-secondary text-capitalize">{user.role}</p>
                 </div>
 
                 {user.role === 'admin' && (
                   <Link 
                     to="/admin/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-2 rounded-lg text-sm font-medium text-indigo-700 bg-indigo-50"
+                    className="d-block px-3 py-2 rounded-3 small fw-medium text-primary bg-primary-subtle"
                   >
                     Admin Panel
                   </Link>
@@ -244,7 +244,7 @@ export const Navbar = () => {
                   <Link 
                     to="/seller/dashboard" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-2 rounded-lg text-sm font-medium text-purple-700 bg-purple-50"
+                    className="d-block px-3 py-2 rounded-3 small fw-medium text-primary bg-primary-subtle"
                   >
                     My Store Panel
                   </Link>
@@ -254,7 +254,7 @@ export const Navbar = () => {
                   <Link 
                     to="/customer/orders" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-700 bg-gray-50"
+                    className="d-block px-3 py-2 rounded-3 small fw-medium text-body bg-body-tertiary"
                   >
                     My Orders
                   </Link>
@@ -262,24 +262,24 @@ export const Navbar = () => {
 
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-rose-600 hover:bg-rose-50"
+                  className="w-100 text-start px-3 py-2 rounded-3 small fw-medium text-danger bg-danger-subtle"
                 >
                   Log Out
                 </button>
               </>
             ) : (
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              <div className="row row-cols-2 g-2 pt-2">
                 <Link 
                   to="/login" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-secondary text-center text-sm py-2"
+                  className="btn btn-secondary text-center small py-2"
                 >
                   Log In
                 </Link>
                 <Link 
                   to="/register" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-primary text-center text-sm py-2"
+                  className="btn btn-primary text-center small py-2"
                 >
                   Sign Up
                 </Link>

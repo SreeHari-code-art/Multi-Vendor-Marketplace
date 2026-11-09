@@ -29,20 +29,20 @@ export const ProductCard = ({ product }) => {
     : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80';
 
   return (
-    <div className="card group relative flex flex-col overflow-hidden p-0 hover:shadow-lg transition-all duration-300 border border-gray-200/80 rounded-xl bg-white">
+    <div className="card position-relative d-flex flex-column overflow-hidden p-0 shadow border border-secondary-subtle rounded-3 bg-white">
       {/* Contenedor de Imagen y Botones Flotantes */}
-      <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
+      <div className="position-relative ratio ratio-1x1 w-100 overflow-hidden bg-body-tertiary">
         <Link to={`/products/${product._id}`}>
           <img 
             src={productImage} 
             alt={product.name}
-            className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="h-100 w-100 object-fit-cover    "
           />
         </Link>
 
         {/* Status Badge (e.g. Sold Out) */}
         {product.stock <= 0 && (
-          <span className="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+          <span className="position-absolute   bg-danger-subtle text-white small fw-bold px-2 py-1 rounded-pill text-uppercase  shadow-sm">
             Sold Out
           </span>
         )}
@@ -50,67 +50,67 @@ export const ProductCard = ({ product }) => {
         {/* Wishlist Button */}
         <button
           onClick={handleToggleWishlist}
-          className={`absolute top-3 right-3 p-2 rounded-full shadow-md transition-all ${
+          className={`position-absolute   p-2 rounded-pill shadow  ${
             isWishlisted 
-              ? 'bg-rose-50 text-rose-600' 
-              : 'bg-white/80 backdrop-blur-sm text-gray-600 hover:text-rose-600 hover:bg-white'
+              ? 'bg-danger-subtle text-danger'
+              : 'bg-white text-secondary'
           }`}
           title={isWishlisted ? 'Remove from favorites' : 'Add to favorites'}
         >
-          <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-rose-600' : ''}`} />
+          <Heart className={`  ${isWishlisted ? '' : ''}`} />
         </button>
       </div>
 
       {/* Product Info */}
-      <div className="flex flex-1 flex-col p-4">
+      <div className="d-flex flex-fill flex-column p-3">
         {/* Header: Store & Category */}
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-1.5">
-          <span className="truncate font-medium text-indigo-600 max-w-[60%]">
+        <div className="d-flex align-items-center justify-content-between small text-secondary mb-2">
+          <span className="text-truncate fw-medium text-primary mw-100">
             {product.shop?.name || 'Official Store'}
           </span>
-          <span className="capitalize bg-gray-100 px-2 py-0.5 rounded text-[11px]">
+          <span className="text-capitalize bg-body-tertiary px-2 py-1 rounded small">
             {product.category || 'General'}
           </span>
         </div>
 
         {/* Product Name */}
-        <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug">
-          <Link to={`/products/${product._id}`} className="hover:text-indigo-600 transition-colors">
+        <h3 className="small fw-semibold text-dark mb-2  lh-sm">
+          <Link to={`/products/${product._id}`} className="text-primary ">
             {product.name}
           </Link>
         </h3>
 
         {/* Card Footer: Price and Actions */}
-        <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+        <div className="mt-auto pt-3 border-top border-secondary-subtle d-flex align-items-center justify-content-between">
           <div>
-            <span className="text-base font-bold text-gray-900">
+            <span className=" fw-bold text-dark">
               {formatCurrency(product.price)}
             </span>
             {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="block text-[11px] text-gray-400 line-through">
+              <span className="d-block small text-secondary text-decoration-line-through">
                 {formatCurrency(product.compareAtPrice)}
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="d-flex align-items-center gap-2">
             {/* Quick view link */}
             <Link
               to={`/products/${product._id}`}
-              className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-secondary text-primary bg-secondary-subtle rounded-3 "
               title="View details"
             >
-              <Eye className="h-4 w-4" />
+              <Eye className=" " />
             </Link>
 
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+              className="p-2 bg-primary-subtle text-white rounded-3 bg-primary opacity-50   shadow-sm"
               title="Add to cart"
             >
-              <ShoppingBag className="h-4 w-4" />
+              <ShoppingBag className=" " />
             </button>
           </div>
         </div>

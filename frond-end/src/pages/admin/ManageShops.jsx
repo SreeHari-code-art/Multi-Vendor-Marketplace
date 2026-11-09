@@ -114,12 +114,12 @@ export const ManageShops = () => {
     const norm = (status || 'active').toLowerCase();
     switch (norm) {
       case 'active':
-        return <Badge variant="success" className="gap-1"><CheckCircle2 className="h-3 w-3" /><span>Active</span></Badge>;
+        return <Badge variant="success" className="gap-1"><CheckCircle2 className=" " /><span>Active</span></Badge>;
       case 'suspended':
-        return <Badge variant="danger" className="gap-1"><XCircle className="h-3 w-3" /><span>Suspended</span></Badge>;
+        return <Badge variant="danger" className="gap-1"><XCircle className=" " /><span>Suspended</span></Badge>;
       case 'pending':
       default:
-        return <Badge variant="warning" className="gap-1"><AlertTriangle className="h-3 w-3" /><span>Under Review</span></Badge>;
+        return <Badge variant="warning" className="gap-1"><AlertTriangle className=" " /><span>Under Review</span></Badge>;
     }
   };
 
@@ -133,36 +133,36 @@ export const ManageShops = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Cabecera */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Store Management</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="fs-2 fw-bold text-dark">Store Management</h1>
+          <p className="small text-secondary mt-1">
             Review, approve, and supervise the independent stores selling on the platform
           </p>
         </div>
 
         {/* Filtro por Estado */}
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 shadow-sm">
-          <Filter className="h-4 w-4 text-gray-400" />
-          <span className="text-xs text-gray-500 font-medium">Status:</span>
+        <div className="d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-3 border border-secondary-subtle shadow-sm">
+          <Filter className="  text-secondary" />
+          <span className="small text-secondary fw-medium">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs font-semibold text-gray-900 bg-transparent border-none focus:outline-none capitalize cursor-pointer pr-4"
+            className="small fw-semibold text-dark bg-transparent border-0  text-capitalize  pe-3"
           >
             <option value="">All ({shops.length})</option>
             {statuses.map((st) => (
-              <option key={st} value={st} className="capitalize">{st}</option>
+              <option key={st} value={st} className="text-capitalize">{st}</option>
             ))}
           </select>
         </div>
@@ -173,79 +173,79 @@ export const ManageShops = () => {
       )}
 
       {/* Search bar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex items-center gap-3">
-        <Search className="h-4 w-4 text-gray-400 ml-1" />
+      <div className="bg-white p-3 rounded-3 border border-secondary-subtle shadow-sm d-flex align-items-center gap-3">
+        <Search className="  text-secondary ms-1" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search stores by name or owner..."
-          className="w-full text-xs bg-transparent border-none focus:outline-none text-gray-900"
+          className="w-100 small bg-transparent border-0  text-dark"
         />
       </div>
 
       {/* Stores table */}
       {filteredShops.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 space-y-3">
-          <Store className="h-12 w-12 text-gray-400 mx-auto" />
-          <h3 className="text-lg font-semibold text-gray-900">No stores found</h3>
-          <p className="text-xs text-gray-500 max-w-sm mx-auto">
+        <div className="text-center py-5 bg-white rounded-3 border border-secondary-subtle vstack gap-3">
+          <Store className="  text-secondary mx-auto" />
+          <h3 className="fs-5 fw-semibold text-dark">No stores found</h3>
+          <p className="small text-secondary mw-100 mx-auto">
             There are no stores matching the current search or status criteria.
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+            <table className="w-100 text-start small">
+              <thead className="bg-body-tertiary text-secondary small text-uppercase  border-bottom border-secondary-subtle">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">Store</th>
-                  <th className="px-6 py-3 font-semibold">Owner / Seller</th>
-                  <th className="px-6 py-3 font-semibold">Status</th>
-                  <th className="px-6 py-3 font-semibold">Created</th>
-                  <th className="px-6 py-3 font-semibold text-right">Actions</th>
+                  <th className="px-4 py-3 fw-semibold">Store</th>
+                  <th className="px-4 py-3 fw-semibold">Owner / Seller</th>
+                  <th className="px-4 py-3 fw-semibold">Status</th>
+                  <th className="px-4 py-3 fw-semibold">Created</th>
+                  <th className="px-4 py-3 fw-semibold text-end">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className=" ">
                 {filteredShops.map((shop) => (
-                  <tr key={shop._id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="px-6 py-4 flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center font-bold shrink-0 border border-purple-100">
-                        <Building className="h-5 w-5" />
+                  <tr key={shop._id} className="bg-body-tertiary ">
+                    <td className="px-4 py-3 d-flex align-items-center gap-3">
+                      <div className="  bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center fw-bold flex-shrink-0 border border-primary-subtle">
+                        <Building className=" " />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">{shop.name}</h4>
-                        <span className="text-[11px] text-gray-400 font-mono">ID: #{shop._id.slice(-6)}</span>
+                        <h4 className="fw-semibold text-dark">{shop.name}</h4>
+                        <span className="small text-secondary font-monospace">ID: #{shop._id.slice(-6)}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-xs text-gray-600">
-                      <div className="flex items-center gap-1.5 font-medium text-gray-900">
-                        <User className="h-3.5 w-3.5 text-indigo-600" />
+                    <td className="px-4 py-3 small text-secondary">
+                      <div className="d-flex align-items-center gap-2 fw-medium text-dark">
+                        <User className="  text-primary" />
                         <span>{shop.owner?.name || 'Unknown Seller'}</span>
                       </div>
-                      <span className="text-gray-400 text-[11px] block">{shop.owner?.email}</span>
+                      <span className="text-secondary small d-block">{shop.owner?.email}</span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       {getStatusBadge(shop.status)}
                     </td>
-                    <td className="px-6 py-4 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-secondary small">
                       {formatDate(shop.createdAt)}
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-4 py-3 text-end">
+                      <div className="d-flex align-items-center justify-content-end gap-2">
                         <button
                           onClick={() => handleOpenStatusModal(shop)}
-                          className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                          className="p-2 text-primary bg-primary-subtle rounded-3 "
                           title="Change status"
                         >
-                          <Edit3 className="h-4 w-4" />
+                          <Edit3 className=" " />
                         </button>
                         <button
                           onClick={() => handleOpenDeleteModal(shop)}
-                          className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                          className="p-2 text-danger bg-danger-subtle rounded-3 "
                           title="Delete store"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className=" " />
                         </button>
                       </div>
                     </td>
@@ -266,32 +266,32 @@ export const ManageShops = () => {
         title={`Change Status - ${shopToEdit?.name}`}
         size="sm"
       >
-        <form onSubmit={handleUpdateStatusSubmit} className="space-y-4">
-          <div className="form-group">
+        <form onSubmit={handleUpdateStatusSubmit} className="vstack gap-3">
+          <div className="mb-3">
             <label className="form-label">Store Status</label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="form-input capitalize"
+              className="form-control text-capitalize"
             >
               {statuses.map((st) => (
-                <option key={st} value={st} className="capitalize">{st}</option>
+                <option key={st} value={st} className="text-capitalize">{st}</option>
               ))}
             </select>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="d-flex justify-content-end gap-3 pt-3 border-top border-secondary-subtle">
             <button
               type="button"
               onClick={() => setIsStatusModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isUpdating}
-              className="btn-primary text-xs py-2 px-5 shadow-sm"
+              className="btn btn-primary small py-2 px-3 shadow-sm"
             >
               {isUpdating ? 'Saving...' : 'Save Status'}
             </button>
@@ -308,19 +308,19 @@ export const ManageShops = () => {
         title="Confirm Store Deletion"
         size="sm"
       >
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 text-amber-600 bg-amber-50 p-3 rounded-xl">
-            <AlertTriangle className="h-6 w-6 shrink-0" />
-            <p className="text-xs text-amber-800">
+        <div className="vstack gap-3">
+          <div className="d-flex align-items-center gap-3 text-warning bg-warning-subtle p-3 rounded-3">
+            <AlertTriangle className="  flex-shrink-0" />
+            <p className="small text-warning">
               Are you sure you want to delete the store <strong>"{shopToDelete?.name}"</strong>? This action will remove commercial access for its associated seller.
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-2">
+          <div className="d-flex justify-content-end gap-3 pt-2">
             <button
               type="button"
               onClick={() => setIsDeleteModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancel
             </button>
@@ -328,7 +328,7 @@ export const ManageShops = () => {
               type="button"
               disabled={isDeleting}
               onClick={handleConfirmDelete}
-              className="bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs py-2 px-4 rounded-lg transition-colors shadow-sm"
+              className="bg-danger-subtle bg-danger text-white fw-medium small py-2 px-3 rounded-3  shadow-sm"
             >
               {isDeleting ? 'Deleting...' : 'Delete Store'}
             </button>

@@ -59,36 +59,36 @@ export const SellerDashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Cabecera del Panel */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-purple-900 via-indigo-900 to-indigo-950 p-8 rounded-3xl text-white shadow-lg">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md border border-white/20 text-purple-200">
-            <Store className="h-3.5 w-3.5 text-purple-300" />
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3     p-5 rounded-3 text-white shadow">
+        <div className="vstack gap-2">
+          <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold bg-dark-subtle  border border-white/20 text-primary">
+            <Store className="  text-primary" />
             Seller Portal
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="fs-2 fw-bolder ">
             Hello, {user?.name || 'Merchant'}!
           </h1>
-          <p className="text-sm text-indigo-200 max-w-xl">
+          <p className="small text-primary mw-100">
             Here is your store performance summary for <strong className="text-white">{user?.shop?.name || 'Official'}</strong>.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="d-flex align-items-center gap-3">
           <Link
             to="/seller/products/new"
-            className="px-5 py-3 bg-white text-purple-950 font-bold rounded-xl shadow-md hover:bg-purple-50 transition-all flex items-center gap-2 text-xs shrink-0"
+            className="px-3 py-3 bg-white text-primary fw-bold rounded-3 shadow bg-primary-subtle  d-flex align-items-center gap-2 small flex-shrink-0"
           >
-            <PlusCircle className="h-4 w-4" />
+            <PlusCircle className=" " />
             <span>Add Product</span>
           </Link>
         </div>
@@ -101,69 +101,69 @@ export const SellerDashboard = () => {
       {/* ==========================================
           1. Tarjetas de Métricas Principales (KPIs)
           ========================================== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
         
         {/* Ingresos Totales */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Ingresos Totales</span>
-            <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
-              <DollarSign className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Ingresos Totales</span>
+            <div className="p-2 bg-success-subtle text-success rounded-3">
+              <DollarSign className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {formatCurrency(stats.totalRevenue || 0)}
           </h3>
-          <p className="text-xs text-emerald-600 flex items-center gap-1 font-medium">
-            <TrendingUp className="h-3.5 w-3.5" />
+          <p className="small text-success d-flex align-items-center gap-1 fw-medium">
+            <TrendingUp className=" " />
             <span>+12% este mes</span>
           </p>
         </div>
 
         {/* Total de Productos */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Active Products</span>
-            <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
-              <Package className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Active Products</span>
+            <div className="p-2 bg-primary-subtle text-primary rounded-3">
+              <Package className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.totalProducts || 0}
           </h3>
-          <Link to="/seller/products" className="text-xs text-indigo-600 hover:underline inline-flex items-center gap-0.5 font-medium">
-            Gestionar catálogo <ArrowUpRight className="h-3 w-3" />
+          <Link to="/seller/products" className="small text-primary text-decoration-underline d-inline-flex align-items-center gap-1 fw-medium">
+            Gestionar catálogo <ArrowUpRight className=" " />
           </Link>
         </div>
 
         {/* Pedidos Totales */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Orders Received</span>
-            <div className="p-2.5 bg-purple-50 text-purple-600 rounded-xl">
-              <ShoppingBag className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Orders Received</span>
+            <div className="p-2 bg-primary-subtle text-primary rounded-3">
+              <ShoppingBag className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.totalOrders || 0}
           </h3>
-          <Link to="/seller/orders" className="text-xs text-purple-600 hover:underline inline-flex items-center gap-0.5 font-medium">
-            Ver todos los pedidos <ArrowUpRight className="h-3 w-3" />
+          <Link to="/seller/orders" className="small text-primary text-decoration-underline d-inline-flex align-items-center gap-1 fw-medium">
+            Ver todos los pedidos <ArrowUpRight className=" " />
           </Link>
         </div>
 
         {/* Pedidos Pendientes */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Pending</span>
-            <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-              <Clock className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Pending</span>
+            <div className="p-2 bg-warning-subtle text-warning rounded-3">
+              <Clock className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.pendingOrders || 0}
           </h3>
-          <span className="text-xs text-amber-600 font-medium block">
+          <span className="small text-warning fw-medium d-block">
             Need immediate attention
           </span>
         </div>
@@ -173,68 +173,68 @@ export const SellerDashboard = () => {
       {/* ==========================================
           2. Sección de Pedidos Recientes
           ========================================== */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-bottom border-secondary-subtle d-flex align-items-center justify-content-between">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Recent Orders</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Latest transactions completed in your store</p>
+            <h2 className="fs-5 fw-bold text-dark">Recent Orders</h2>
+            <p className="small text-secondary mt-1">Latest transactions completed in your store</p>
           </div>
-          <Link to="/seller/orders" className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
+          <Link to="/seller/orders" className="small fw-semibold text-primary text-primary d-flex align-items-center gap-1">
             <span>Ver todos</span>
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className=" " />
           </Link>
         </div>
 
         {recentOrders.length === 0 ? (
-          <div className="p-12 text-center space-y-3">
-            <ShoppingBag className="h-10 w-10 text-gray-400 mx-auto" />
-            <h3 className="text-base font-semibold text-gray-900">No recent orders</h3>
-            <p className="text-xs text-gray-500">Las compras de tus clientes aparecerán listadas aquí.</p>
+          <div className="p-5 text-center vstack gap-3">
+            <ShoppingBag className="  text-secondary mx-auto" />
+            <h3 className=" fw-semibold text-dark">No recent orders</h3>
+            <p className="small text-secondary">Las compras de tus clientes aparecerán listadas aquí.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+            <table className="w-100 text-start small">
+              <thead className="bg-body-tertiary text-secondary small text-uppercase  border-bottom border-secondary-subtle">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">ID Pedido</th>
-                  <th className="px-6 py-3 font-semibold">Cliente</th>
-                  <th className="px-6 py-3 font-semibold">Fecha</th>
-                  <th className="px-6 py-3 font-semibold">Total</th>
-                  <th className="px-6 py-3 font-semibold">Estado</th>
-                  <th className="px-6 py-3 font-semibold text-right">Acción</th>
+                  <th className="px-4 py-3 fw-semibold">ID Pedido</th>
+                  <th className="px-4 py-3 fw-semibold">Cliente</th>
+                  <th className="px-4 py-3 fw-semibold">Fecha</th>
+                  <th className="px-4 py-3 fw-semibold">Total</th>
+                  <th className="px-4 py-3 fw-semibold">Estado</th>
+                  <th className="px-4 py-3 fw-semibold text-end">Acción</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className=" ">
                 {recentOrders.map((order) => (
-                  <tr key={order._id} className="hover:bg-gray-50/55 transition-colors">
-                    <td className="px-6 py-4 font-mono font-bold text-gray-900 text-xs">
+                  <tr key={order._id} className="bg-body-tertiary ">
+                    <td className="px-4 py-3 font-monospace fw-bold text-dark small">
                       #{order._id.slice(-8)}
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-900">
+                    <td className="px-4 py-3 fw-medium text-dark">
                       {order.user?.name || order.shippingAddress?.fullName || 'Cliente'}
                     </td>
-                    <td className="px-6 py-4 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-secondary small">
                       {formatDate(order.createdAt)}
                     </td>
-                    <td className="px-6 py-4 font-bold text-gray-900">
+                    <td className="px-4 py-3 fw-bold text-dark">
                       {formatCurrency(order.totalPrice)}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       <Badge variant={
                         order.status === 'delivered' ? 'success' :
                         order.status === 'shipped' ? 'info' :
                         order.status === 'processing' ? 'primary' : 'warning'
                       }>
-                        <span className="capitalize">{order.status || 'Pending'}</span>
+                        <span className="text-capitalize">{order.status || 'Pending'}</span>
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-4 py-3 text-end">
                       <Link 
                         to={`/seller/orders`} 
-                        className="text-xs font-semibold text-indigo-600 hover:text-indigo-900 inline-flex items-center gap-1"
+                        className="small fw-semibold text-primary text-primary-emphasis d-inline-flex align-items-center gap-1"
                       >
                         <span>Gestionar</span>
-                        <ChevronRight className="h-3 w-3" />
+                        <ChevronRight className=" " />
                       </Link>
                     </td>
                   </tr>

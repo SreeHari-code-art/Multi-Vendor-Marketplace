@@ -115,12 +115,12 @@ export const ManageUsers = () => {
     const norm = (role || 'customer').toLowerCase();
     switch (norm) {
       case 'admin':
-        return <Badge variant="danger" className="gap-1"><Shield className="h-3 w-3" /><span>Administrator</span></Badge>;
+        return <Badge variant="danger" className="gap-1"><Shield className=" " /><span>Administrator</span></Badge>;
       case 'seller':
-        return <Badge variant="primary" className="gap-1"><Building className="h-3 w-3" /><span>Seller</span></Badge>;
+        return <Badge variant="primary" className="gap-1"><Building className=" " /><span>Seller</span></Badge>;
       case 'customer':
       default:
-        return <Badge variant="success" className="gap-1"><UserCheck className="h-3 w-3" /><span>Buyer</span></Badge>;
+        return <Badge variant="success" className="gap-1"><UserCheck className=" " /><span>Buyer</span></Badge>;
     }
   };
 
@@ -134,36 +134,36 @@ export const ManageUsers = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Cabecera */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="fs-2 fw-bold text-dark">User Management</h1>
+          <p className="small text-secondary mt-1">
             Manage permissions, roles, and registered accounts on the platform
           </p>
         </div>
 
         {/* Filtro por Rol */}
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-gray-200 shadow-sm">
-          <Filter className="h-4 w-4 text-gray-400" />
-          <span className="text-xs text-gray-500 font-medium">Role:</span>
+        <div className="d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-3 border border-secondary-subtle shadow-sm">
+          <Filter className="  text-secondary" />
+          <span className="small text-secondary fw-medium">Role:</span>
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="text-xs font-semibold text-gray-900 bg-transparent border-none focus:outline-none capitalize cursor-pointer pr-4"
+            className="small fw-semibold text-dark bg-transparent border-0  text-capitalize  pe-3"
           >
             <option value="">All ({users.length})</option>
             {roles.map((r) => (
-              <option key={r} value={r} className="capitalize">{r}</option>
+              <option key={r} value={r} className="text-capitalize">{r}</option>
             ))}
           </select>
         </div>
@@ -174,78 +174,78 @@ export const ManageUsers = () => {
       )}
 
       {/* Search bar */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex items-center gap-3">
-        <Search className="h-4 w-4 text-gray-400 ml-1" />
+      <div className="bg-white p-3 rounded-3 border border-secondary-subtle shadow-sm d-flex align-items-center gap-3">
+        <Search className="  text-secondary ms-1" />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search by name or email..."
-          className="w-full text-xs bg-transparent border-none focus:outline-none text-gray-900"
+          className="w-100 small bg-transparent border-0  text-dark"
         />
       </div>
 
       {/* Users table */}
       {filteredUsers.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 space-y-3">
-          <Users className="h-12 w-12 text-gray-400 mx-auto" />
-          <h3 className="text-lg font-semibold text-gray-900">No users found</h3>
-          <p className="text-xs text-gray-500 max-w-sm mx-auto">
+        <div className="text-center py-5 bg-white rounded-3 border border-secondary-subtle vstack gap-3">
+          <Users className="  text-secondary mx-auto" />
+          <h3 className="fs-5 fw-semibold text-dark">No users found</h3>
+          <p className="small text-secondary mw-100 mx-auto">
             There are no records matching the current search or role filter.
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+            <table className="w-100 text-start small">
+              <thead className="bg-body-tertiary text-secondary small text-uppercase  border-bottom border-secondary-subtle">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">User</th>
-                  <th className="px-6 py-3 font-semibold">Email</th>
-                  <th className="px-6 py-3 font-semibold">Role</th>
-                  <th className="px-6 py-3 font-semibold">Registration Date</th>
-                  <th className="px-6 py-3 font-semibold text-right">Actions</th>
+                  <th className="px-4 py-3 fw-semibold">User</th>
+                  <th className="px-4 py-3 fw-semibold">Email</th>
+                  <th className="px-4 py-3 fw-semibold">Role</th>
+                  <th className="px-4 py-3 fw-semibold">Registration Date</th>
+                  <th className="px-4 py-3 fw-semibold text-end">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className=" ">
                 {filteredUsers.map((u) => (
-                  <tr key={u._id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="px-6 py-4 flex items-center gap-3">
-                      <div className="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs uppercase shrink-0">
+                  <tr key={u._id} className="bg-body-tertiary ">
+                    <td className="px-4 py-3 d-flex align-items-center gap-3">
+                      <div className="  bg-primary-subtle text-primary rounded-pill d-flex align-items-center justify-content-center fw-bold small text-uppercase flex-shrink-0">
                         {u.name ? u.name.charAt(0) : 'U'}
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">{u.name}</h4>
-                        <span className="text-[11px] text-gray-400 font-mono">ID: #{u._id.slice(-6)}</span>
+                        <h4 className="fw-semibold text-dark">{u.name}</h4>
+                        <span className="small text-secondary font-monospace">ID: #{u._id.slice(-6)}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-600 text-xs">
+                    <td className="px-4 py-3 text-secondary small">
                       {u.email}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       {getRoleBadge(u.role)}
                     </td>
-                    <td className="px-6 py-4 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-secondary small">
                       {formatDate(u.createdAt)}
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-4 py-3 text-end">
+                      <div className="d-flex align-items-center justify-content-end gap-2">
                         <button
                           onClick={() => handleOpenRoleModal(u)}
-                          className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                          className="p-2 text-primary bg-primary-subtle rounded-3 "
                           title="Modify role"
                         >
-                          <Edit3 className="h-4 w-4" />
+                          <Edit3 className=" " />
                         </button>
 
                         {/* Evitar auto-eliminación del admin actual */}
                         {u._id !== currentUser?._id && (
                           <button
                             onClick={() => handleOpenDeleteModal(u)}
-                            className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                            className="p-2 text-danger bg-danger-subtle rounded-3 "
                             title="Delete user"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className=" " />
                           </button>
                         )}
                       </div>
@@ -267,35 +267,35 @@ export const ManageUsers = () => {
         title={`Modify Role - ${userToEdit?.name}`}
         size="sm"
       >
-        <form onSubmit={handleUpdateRoleSubmit} className="space-y-4">
-          <div className="form-group">
+        <form onSubmit={handleUpdateRoleSubmit} className="vstack gap-3">
+          <div className="mb-3">
             <label className="form-label">Select New Role</label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="form-input capitalize"
+              className="form-control text-capitalize"
             >
               {roles.map((r) => (
-                <option key={r} value={r} className="capitalize">{r}</option>
+                <option key={r} value={r} className="text-capitalize">{r}</option>
               ))}
             </select>
-            <p className="text-[11px] text-gray-500 mt-1">
+            <p className="small text-secondary mt-1">
               * Changing the role will alter the access permissions and available views for this user.
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="d-flex justify-content-end gap-3 pt-3 border-top border-secondary-subtle">
             <button
               type="button"
               onClick={() => setIsRoleModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isUpdating}
-              className="btn-primary text-xs py-2 px-5 shadow-sm"
+              className="btn btn-primary small py-2 px-3 shadow-sm"
             >
               {isUpdating ? 'Updating...' : 'Save Role'}
             </button>
@@ -312,19 +312,19 @@ export const ManageUsers = () => {
         title="Confirm User Deletion"
         size="sm"
       >
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 text-amber-600 bg-amber-50 p-3 rounded-xl">
-            <AlertTriangle className="h-6 w-6 shrink-0" />
-            <p className="text-xs text-amber-800">
+        <div className="vstack gap-3">
+          <div className="d-flex align-items-center gap-3 text-warning bg-warning-subtle p-3 rounded-3">
+            <AlertTriangle className="  flex-shrink-0" />
+            <p className="small text-warning">
               Are you sure you want to delete the account for <strong>{userToDelete?.name}</strong> ({userToDelete?.email})? This action is irreversible.
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-2">
+          <div className="d-flex justify-content-end gap-3 pt-2">
             <button
               type="button"
               onClick={() => setIsDeleteModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancelar
             </button>
@@ -332,7 +332,7 @@ export const ManageUsers = () => {
               type="button"
               disabled={isDeleting}
               onClick={handleConfirmDelete}
-              className="bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs py-2 px-4 rounded-lg transition-colors shadow-sm"
+              className="bg-danger-subtle bg-danger text-white fw-medium small py-2 px-3 rounded-3  shadow-sm"
             >
               {isDeleting ? 'Eliminando...' : 'Eliminar Usuario'}
             </button>

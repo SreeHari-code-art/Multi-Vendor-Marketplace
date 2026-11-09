@@ -38,18 +38,18 @@ export const Wishlist = () => {
 
   if (wishlistItems.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-6">
-        <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto">
-          <Heart className="h-10 w-10 fill-rose-500" />
+      <div className="mw-100 mx-auto px-3 py-5 text-center vstack gap-4">
+        <div className="  bg-danger-subtle text-danger rounded-pill d-flex align-items-center justify-content-center mx-auto">
+          <Heart className="  " />
         </div>
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900">Your wishlist is empty</h2>
-          <p className="text-sm text-gray-500 max-w-sm mx-auto">
+        <div className="vstack gap-2">
+          <h2 className="fs-3 fw-bold text-dark">Your wishlist is empty</h2>
+          <p className="small text-secondary mw-100 mx-auto">
             Save products you love by clicking the heart icon while browsing the catalog.
           </p>
         </div>
-        <Link to="/products" className="btn-primary inline-flex items-center gap-2 px-6 py-3">
-          <ArrowLeft className="h-4 w-4" />
+        <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3">
+          <ArrowLeft className=" " />
           <span>Explore Catalog</span>
         </Link>
       </div>
@@ -57,27 +57,27 @@ export const Wishlist = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Header */}
-      <div className="flex items-center justify-between pb-6 border-b border-gray-200">
+      <div className="d-flex align-items-center justify-content-between pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Wishlist</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            You have <strong className="text-gray-900">{wishlistItems.length}</strong> {wishlistItems.length === 1 ? 'saved item' : 'saved items'}
+          <h1 className="fs-2 fw-bold text-dark">My Wishlist</h1>
+          <p className="small text-secondary mt-1">
+            You have <strong className="text-dark">{wishlistItems.length}</strong> {wishlistItems.length === 1 ? 'saved item' : 'saved items'}
           </p>
         </div>
         <button
           onClick={handleClearWishlist}
-          className="text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1.5 transition-colors"
+          className="small fw-semibold text-danger text-danger-emphasis d-flex align-items-center gap-2 "
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className=" " />
           <span>Clear List</span>
         </button>
       </div>
 
       {/* Cuadrícula de Productos en la Lista de Deseos */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         {wishlistItems.map((product) => {
           const productImage = product.images && product.images.length > 0 
             ? product.images[0] 
@@ -86,66 +86,66 @@ export const Wishlist = () => {
           return (
             <div 
               key={product._id}
-              className="card group relative flex flex-col overflow-hidden p-0 hover:shadow-lg transition-all duration-300 border border-gray-200/80 rounded-xl bg-white"
+              className="card position-relative d-flex flex-column overflow-hidden p-0 shadow border border-secondary-subtle rounded-3 bg-white"
             >
               {/* Imagen y Botón de Eliminar Individual */}
-              <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
+              <div className="position-relative ratio ratio-1x1 w-100 overflow-hidden bg-body-tertiary">
                 <Link to={`/products/${product._id}`}>
                   <img 
                     src={productImage} 
                     alt={product.name}
-                    className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    className="h-100 w-100 object-fit-cover    "
                   />
                 </Link>
 
                 <button
                   onClick={() => handleRemove(product._id)}
-                  className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm text-rose-600 hover:bg-rose-50 rounded-full shadow-md transition-all"
+                  className="position-absolute   p-2 bg-white  text-danger bg-danger-subtle rounded-pill shadow "
                   title="Remove from favorites"
                 >
-                  <Heart className="h-4 w-4 fill-rose-600" />
+                  <Heart className="  " />
                 </button>
               </div>
 
               {/* Contenido */}
-              <div className="flex flex-1 flex-col p-4">
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-1.5">
-                  <span className="truncate font-medium text-indigo-600 max-w-[60%] flex items-center gap-1">
-                    <Store className="h-3 w-3" />
+              <div className="d-flex flex-fill flex-column p-3">
+                <div className="d-flex align-items-center justify-content-between small text-secondary mb-2">
+                  <span className="text-truncate fw-medium text-primary mw-100 d-flex align-items-center gap-1">
+                    <Store className=" " />
                     {product.shop?.name || 'Official Store'}
                   </span>
-                  <span className="capitalize bg-gray-100 px-2 py-0.5 rounded text-[11px]">
+                  <span className="text-capitalize bg-body-tertiary px-2 py-1 rounded small">
                     {product.category || 'General'}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 leading-snug">
-                  <Link to={`/products/${product._id}`} className="hover:text-indigo-600 transition-colors">
+                <h3 className="small fw-semibold text-dark mb-2  lh-sm">
+                  <Link to={`/products/${product._id}`} className="text-primary ">
                     {product.name}
                   </Link>
                 </h3>
 
-                <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-base font-bold text-gray-900">
+                <div className="mt-auto pt-3 border-top border-secondary-subtle d-flex align-items-center justify-content-between">
+                  <span className=" fw-bold text-dark">
                     {formatCurrency(product.price)}
                   </span>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="d-flex align-items-center gap-2">
                     <Link
                       to={`/products/${product._id}`}
-                      className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 text-secondary text-primary bg-secondary-subtle rounded-3 "
                       title="View details"
                     >
-                      <Eye className="h-4 w-4" />
+                      <Eye className=" " />
                     </Link>
 
                     <button
                       onClick={() => handleMoveToCart(product)}
                       disabled={product.stock <= 0}
-                      className="p-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+                      className="p-2 bg-primary-subtle text-white rounded-3 bg-primary opacity-50   shadow-sm"
                       title="Move to cart"
                     >
-                      <ShoppingBag className="h-4 w-4" />
+                      <ShoppingBag className=" " />
                     </button>
                   </div>
                 </div>

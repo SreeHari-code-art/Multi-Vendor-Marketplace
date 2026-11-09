@@ -50,18 +50,18 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-sm border border-gray-200/80">
+    <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-body-tertiary">
+      <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-flex flex-column gap-5 bg-white p-5 rounded-3 shadow-sm border border-secondary-subtle">
         
         {/* Form Header */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 mb-4">
-            <Store className="h-6 w-6" />
+          <div className="d-inline-flex align-items-center justify-content-center   rounded-3 bg-primary-subtle text-primary mb-3">
+            <Store className=" " />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+          <h2 className="fs-3 fw-bold text-dark ">
             Welcome back!
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 small text-secondary">
             Enter your credentials to access your account
           </p>
         </div>
@@ -76,17 +76,17 @@ export const Login = () => {
         )}
 
         {/* Login Form */}
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+        <form className="mt-5 vstack gap-4" onSubmit={handleSubmit}>
+          <div className="vstack gap-3">
             
             {/* Email Field */}
-            <div className="form-group">
+            <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 Email Address
               </label>
-              <div className="relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                  <Mail className="h-4 w-4" />
+              <div className="position-relative rounded-2 shadow-sm">
+                <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                  <Mail className=" " />
                 </div>
                 <input
                   id="email"
@@ -96,25 +96,25 @@ export const Login = () => {
                   value={email}
                   onChange={handleChange}
                   placeholder="name@example.com"
-                  className="form-input pl-10"
+                  className="form-control ps-5"
                   disabled={isLoading}
                 />
               </div>
             </div>
 
             {/* Password Field */}
-            <div className="form-group">
-              <div className="flex items-center justify-between mb-1.5">
+            <div className="mb-3">
+              <div className="d-flex align-items-center justify-content-between mb-2">
                 <label htmlFor="password" className="form-label mb-0">
                   Password
                 </label>
-                <span className="text-xs text-indigo-600 hover:underline cursor-pointer">
+                <span className="small text-primary text-decoration-underline ">
                   Forgot your password?
                 </span>
               </div>
-              <div className="relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                  <Lock className="h-4 w-4" />
+              <div className="position-relative rounded-2 shadow-sm">
+                <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                  <Lock className=" " />
                 </div>
                 <input
                   id="password"
@@ -124,7 +124,7 @@ export const Login = () => {
                   value={password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="form-input pl-10"
+                  className="form-control ps-5"
                   disabled={isLoading}
                 />
               </div>
@@ -136,13 +136,13 @@ export const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary w-full flex items-center justify-center gap-2 py-3 text-sm"
+            className="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2 py-3 small"
           >
             {isLoading ? (
               <Spinner size="sm" className="text-white" />
             ) : (
               <>
-                <LogIn className="h-4 w-4" />
+                <LogIn className=" " />
                 <span>Log In</span>
               </>
             )}
@@ -150,10 +150,10 @@ export const Login = () => {
         </form>
 
         {/* Registration Footer */}
-        <div className="text-center pt-4 border-t border-gray-100">
-          <p className="text-sm text-gray-600">
+        <div className="text-center pt-3 border-top border-secondary-subtle">
+          <p className="small text-secondary">
             Don&apos;t have an account yet?{' '}
-            <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            <Link to="/register" className="fw-semibold text-primary text-primary">
               Create one here
             </Link>
           </p>

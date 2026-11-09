@@ -27,7 +27,7 @@ export const ShopCatalog = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
@@ -35,62 +35,62 @@ export const ShopCatalog = () => {
 
   if (error) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mw-100 mx-auto px-3 py-5">
         <Alert type="danger" title="Could not load stores" message={error} />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">Marketplace</p>
-        <h1 className="mt-2 text-3xl font-extrabold text-gray-900">Featured Stores</h1>
-        <p className="mt-2 text-gray-600">Explore verified sellers and discover exclusive products.</p>
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5">
+      <div className="mb-5">
+        <p className="small fw-semibold text-uppercase  text-primary">Marketplace</p>
+        <h1 className="mt-2 fs-2 fw-bolder text-dark">Featured Stores</h1>
+        <p className="mt-2 text-secondary">Explore verified sellers and discover exclusive products.</p>
       </div>
 
       {shops.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-500">
+        <div className="rounded-3 border border border-secondary-subtle border-secondary-subtle bg-white p-5 text-center text-secondary">
           There are currently no stores available.
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="row g-4 row-cols-md-2 row-cols-xl-3">
           {shops.map((shop) => (
             <Link
               key={shop._id}
               to={`/shops/${shop._id}`}
-              className="group overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className=" overflow-hidden rounded-3 border border-secondary-subtle bg-white shadow-sm   shadow"
             >
-              <div className="h-40 overflow-hidden bg-gray-100">
+              <div className=" overflow-hidden bg-body-tertiary">
                 <img
                   src={shop.logo || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80'}
                   alt={shop.name}
-                  className="h-full w-full object-cover group-hover:scale-105 transition duration-500"
+                  className="h-100 w-100 object-fit-cover   "
                 />
               </div>
 
-              <div className="p-5">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                      <Store className="h-5 w-5" />
+              <div className="p-3">
+                <div className="mb-3 d-flex align-items-center justify-content-between gap-3">
+                  <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex   align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary">
+                      <Store className=" " />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-gray-900">{shop.name}</h2>
+                      <h2 className="fs-5 fw-bold text-dark">{shop.name}</h2>
                     </div>
                   </div>
                 </div>
 
-                <p className="mb-4 line-clamp-3 text-sm text-gray-600">{shop.description}</p>
+                <p className="mb-3  small text-secondary">{shop.description}</p>
 
-                <div className="mb-4 flex items-center gap-2 text-sm text-gray-500">
-                  <MapPin className="h-4 w-4 text-indigo-500" />
+                <div className="mb-3 d-flex align-items-center gap-2 small text-secondary">
+                  <MapPin className="  text-primary" />
                   <span>{shop.address?.city || 'Location unavailable'}, {shop.address?.country || ''}</span>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 text-sm font-medium text-indigo-600">
+                <div className="d-flex align-items-center justify-content-between pt-3 small fw-medium text-primary">
                   <span>View store</span>
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  <ArrowRight className="   " />
                 </div>
               </div>
             </Link>

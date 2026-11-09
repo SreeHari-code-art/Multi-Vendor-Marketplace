@@ -144,21 +144,21 @@ export const ManageProducts = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Section header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Product Management</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="fs-2 fw-bold text-dark">Product Management</h1>
+          <p className="small text-secondary mt-1">
             Create, update, and manage your store inventory ({user?.shop?.name || 'My Store'})
           </p>
         </div>
         <button
           onClick={handleOpenCreateModal}
-          className="btn-primary inline-flex items-center gap-2 py-2.5 px-4 text-sm self-start sm:self-auto shadow-md"
+          className="btn btn-primary d-inline-flex align-items-center gap-2 py-2 px-3 small align-self-start align-self-sm-auto shadow"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className=" " />
           <span>New Product</span>
         </button>
       </div>
@@ -168,28 +168,28 @@ export const ManageProducts = () => {
       )}
 
       {/* Search and filter bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-        <div className="relative w-full sm:w-80">
+      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3 bg-white p-3 rounded-3 border border-secondary-subtle shadow-sm">
+        <div className="position-relative w-100 ">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by name..."
-            className="form-input pl-10 pr-4 py-2 text-xs"
+            className="form-control ps-5 pe-3 py-2 small"
           />
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+          <Search className="position-absolute     text-secondary" />
         </div>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <label className="text-xs text-gray-500 font-medium shrink-0">Category:</label>
+        <div className="d-flex align-items-center gap-2 w-100 ">
+          <label className="small text-secondary fw-medium flex-shrink-0">Category:</label>
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="form-input text-xs py-2 pl-3 pr-8 w-full sm:w-auto bg-gray-50"
+            className="form-control small py-2 ps-3 pe-5 w-100  bg-body-tertiary"
           >
             <option value="">All</option>
             {categories.map((cat) => (
-              <option key={cat} value={cat} className="capitalize">{cat}</option>
+              <option key={cat} value={cat} className="text-capitalize">{cat}</option>
             ))}
           </select>
         </div>
@@ -197,76 +197,76 @@ export const ManageProducts = () => {
 
       {/* Product table */}
       {isLoading ? (
-        <div className="py-20">
+        <div className="py-5">
           <Spinner size="lg" />
         </div>
       ) : sellerProducts.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-gray-200 space-y-3">
-          <Package className="h-12 w-12 text-gray-400 mx-auto" />
-          <h3 className="text-lg font-semibold text-gray-900">No products registered</h3>
-          <p className="text-xs text-gray-500 max-w-sm mx-auto">
+        <div className="text-center py-5 bg-white rounded-3 border border-secondary-subtle vstack gap-3">
+          <Package className="  text-secondary mx-auto" />
+          <h3 className="fs-5 fw-semibold text-dark">No products registered</h3>
+          <p className="small text-secondary mw-100 mx-auto">
             You have not published any items yet, or no product matches the selected filter.
           </p>
-          <button onClick={handleOpenCreateModal} className="btn-primary text-xs py-2 px-4 mt-2">
+          <button onClick={handleOpenCreateModal} className="btn btn-primary small py-2 px-3 mt-2">
             Add Your First Product
           </button>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+            <table className="w-100 text-start small">
+              <thead className="bg-body-tertiary text-secondary small text-uppercase  border-bottom border-secondary-subtle">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">Product</th>
-                  <th className="px-6 py-3 font-semibold">Category</th>
-                  <th className="px-6 py-3 font-semibold">Price</th>
-                  <th className="px-6 py-3 font-semibold">Stock</th>
-                  <th className="px-6 py-3 font-semibold text-right">Actions</th>
+                  <th className="px-4 py-3 fw-semibold">Product</th>
+                  <th className="px-4 py-3 fw-semibold">Category</th>
+                  <th className="px-4 py-3 fw-semibold">Price</th>
+                  <th className="px-4 py-3 fw-semibold">Stock</th>
+                  <th className="px-4 py-3 fw-semibold text-end">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className=" ">
                 {sellerProducts.map((product) => {
                   const image = product.images?.[0] || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80';
                   
                   return (
-                    <tr key={product._id} className="hover:bg-gray-50/50 transition-colors">
-                      <td className="px-6 py-4 flex items-center gap-3">
-                        <img src={image} alt={product.name} className="w-12 h-12 object-cover rounded-lg bg-gray-100 border shrink-0" />
+                    <tr key={product._id} className="bg-body-tertiary ">
+                      <td className="px-4 py-3 d-flex align-items-center gap-3">
+                        <img src={image} alt={product.name} className="  object-fit-cover rounded-3 bg-body-tertiary border flex-shrink-0" />
                         <div>
-                          <h4 className="font-semibold text-gray-900 line-clamp-1">{product.name}</h4>
-                          <span className="text-[11px] text-gray-400">ID: #{product._id.slice(-6)}</span>
+                          <h4 className="fw-semibold text-dark ">{product.name}</h4>
+                          <span className="small text-secondary">ID: #{product._id.slice(-6)}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className="capitalize bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                      <td className="px-4 py-3">
+                        <span className="text-capitalize bg-body-tertiary text-body px-2 py-1 rounded-pill small fw-medium">
                           {product.category || 'General'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 font-bold text-gray-900">
+                      <td className="px-4 py-3 fw-bold text-dark">
                         {formatCurrency(product.price)}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 py-3">
                         {product.stock > 0 ? (
                           <Badge variant="success">{product.stock} available</Badge>
                         ) : (
                           <Badge variant="danger">Out of stock</Badge>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                      <td className="px-4 py-3 text-end">
+                        <div className="d-flex align-items-center justify-content-end gap-2">
                           <button
                             onClick={() => handleOpenEditModal(product)}
-                            className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                            className="p-2 text-primary bg-primary-subtle rounded-3 "
                             title="Edit product"
                           >
-                            <Edit2 className="h-4 w-4" />
+                            <Edit2 className=" " />
                           </button>
                           <button
                             onClick={() => handleOpenDeleteModal(product)}
-                            className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                            className="p-2 text-danger bg-danger-subtle rounded-3 "
                             title="Delete product"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className=" " />
                           </button>
                         </div>
                       </td>
@@ -288,8 +288,8 @@ export const ManageProducts = () => {
         title={editingProduct ? 'Edit Product' : 'New Product'}
         size="lg"
       >
-        <form onSubmit={handleSubmitForm} className="space-y-4">
-          <div className="form-group">
+        <form onSubmit={handleSubmitForm} className="vstack gap-3">
+          <div className="mb-3">
             <label className="form-label">Product Name *</label>
             <input
               type="text"
@@ -298,18 +298,18 @@ export const ManageProducts = () => {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="e.g. Wireless Bluetooth Headphones"
-              className="form-input"
+              className="form-control"
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="form-group">
+          <div className="row row-cols-1 row-cols-sm-3 g-3">
+            <div className="mb-3">
               <label className="form-label">Category *</label>
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="form-input capitalize"
+                className="form-control text-capitalize"
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -317,7 +317,7 @@ export const ManageProducts = () => {
               </select>
             </div>
 
-            <div className="form-group">
+            <div className="mb-3">
               <label className="form-label">Price (INR) *</label>
               <input
                 type="number"
@@ -328,11 +328,11 @@ export const ManageProducts = () => {
                 value={formData.price}
                 onChange={handleInputChange}
                 placeholder="1499"
-                className="form-input"
+                className="form-control"
               />
             </div>
 
-            <div className="form-group">
+            <div className="mb-3">
               <label className="form-label">Initial Stock *</label>
               <input
                 type="number"
@@ -342,12 +342,12 @@ export const ManageProducts = () => {
                 value={formData.stock}
                 onChange={handleInputChange}
                 placeholder="25"
-                className="form-input"
+                className="form-control"
               />
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="mb-3">
             <label className="form-label">Detailed Description</label>
             <textarea
               name="description"
@@ -355,29 +355,29 @@ export const ManageProducts = () => {
               value={formData.description}
               onChange={handleInputChange}
               placeholder="Escribe las características principales del producto..."
-              className="form-input"
+              className="form-control"
             />
           </div>
 
           {/* URLs de Imágenes */}
-          <div className="space-y-2">
+          <div className="vstack gap-2">
             <label className="form-label mb-0">Imágenes (URLs)</label>
             {formData.images.map((imgUrl, index) => (
-              <div key={index} className="flex items-center gap-2">
+              <div key={index} className="d-flex align-items-center gap-2">
                 <input
                   type="url"
                   value={imgUrl}
                   onChange={(e) => handleImageChange(index, e.target.value)}
                   placeholder="https://ejemplo.com/imagen.jpg"
-                  className="form-input text-xs"
+                  className="form-control small"
                 />
                 {formData.images.length > 1 && (
                   <button
                     type="button"
                     onClick={() => handleRemoveImageField(index)}
-                    className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg"
+                    className="p-2 text-danger bg-danger-subtle rounded-3"
                   >
-                    <X className="h-4 w-4" />
+                    <X className=" " />
                   </button>
                 )}
               </div>
@@ -385,24 +385,24 @@ export const ManageProducts = () => {
             <button
               type="button"
               onClick={handleAddImageField}
-              className="text-xs font-semibold text-indigo-600 hover:underline inline-flex items-center gap-1 pt-1"
+              className="small fw-semibold text-primary text-decoration-underline d-inline-flex align-items-center gap-1 pt-1"
             >
-              <Plus className="h-3.5 w-3.5" />
+              <Plus className=" " />
               <span>Add another image URL</span>
             </button>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="d-flex justify-content-end gap-3 pt-3 border-top border-secondary-subtle">
             <button
               type="button"
               onClick={() => setIsFormModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="btn-primary text-xs py-2 px-5 shadow-sm"
+              className="btn btn-primary small py-2 px-3 shadow-sm"
             >
               {editingProduct ? 'Save Changes' : 'Create Product'}
             </button>
@@ -419,24 +419,24 @@ export const ManageProducts = () => {
         title="Confirmar Eliminación"
         size="sm"
       >
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 text-amber-600 bg-amber-50 p-3 rounded-xl">
-            <AlertTriangle className="h-6 w-6 shrink-0" />
-            <p className="text-xs text-amber-800">
+        <div className="vstack gap-3">
+          <div className="d-flex align-items-center gap-3 text-warning bg-warning-subtle p-3 rounded-3">
+            <AlertTriangle className="  flex-shrink-0" />
+            <p className="small text-warning">
               Are you sure you want to delete <strong>"{productToDelete?.name}"</strong>? This action cannot be undone.
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-2">
+          <div className="d-flex justify-content-end gap-3 pt-2">
             <button
               onClick={() => setIsDeleteModalOpen(false)}
-              className="btn-secondary text-xs py-2 px-4"
+              className="btn btn-secondary small py-2 px-3"
             >
               Cancelar
             </button>
             <button
               onClick={handleConfirmDelete}
-              className="bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs py-2 px-4 rounded-lg transition-colors shadow-sm"
+              className="bg-danger-subtle bg-danger text-white fw-medium small py-2 px-3 rounded-3  shadow-sm"
             >
               Delete Permanently
             </button>

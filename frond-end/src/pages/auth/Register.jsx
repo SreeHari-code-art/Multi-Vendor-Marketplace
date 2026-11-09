@@ -84,47 +84,47 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-sm border border-gray-200/80">
+    <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-body-tertiary">
+      <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-flex flex-column gap-5 bg-white p-5 rounded-3 shadow-sm border border-secondary-subtle">
         
         {/* Cabecera */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 mb-4">
-            <Store className="h-6 w-6" />
+          <div className="d-inline-flex align-items-center justify-content-center   rounded-3 bg-primary-subtle text-primary mb-3">
+            <Store className=" " />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+          <h2 className="fs-3 fw-bold text-dark ">
             Create your MultiMarket account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 small text-secondary">
             Join our platform as a buyer or open your own store
           </p>
         </div>
 
         {/* Role Selection (Buyer vs Seller) */}
-        <div className="grid grid-cols-2 gap-3 p-1.5 bg-gray-100 rounded-xl">
+        <div className="row row-cols-2 g-3 p-2 bg-body-tertiary rounded-3">
           <button
             type="button"
             onClick={() => setFormData((prev) => ({ ...prev, role: 'customer' }))}
-            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all ${
+            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold  ${
               role === 'customer'
-                ? 'bg-white text-indigo-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-primary shadow-sm'
+                : 'text-secondary text-dark'
             }`}
           >
-            <ShoppingBag className="h-4 w-4" />
+            <ShoppingBag className=" " />
             <span>Buyer</span>
           </button>
           
           <button
             type="button"
             onClick={() => setFormData((prev) => ({ ...prev, role: 'seller' }))}
-            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all ${
+            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold  ${
               role === 'seller'
-                ? 'bg-white text-purple-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-primary shadow-sm'
+                : 'text-secondary text-dark'
             }`}
           >
-            <Building className="h-4 w-4" />
+            <Building className=" " />
             <span>Seller</span>
           </button>
         </div>
@@ -142,16 +142,16 @@ export const Register = () => {
         )}
 
         {/* Formulario */}
-        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+        <form className="mt-4 vstack gap-3" onSubmit={handleSubmit}>
           
           {/* Full Name */}
-          <div className="form-group">
+          <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Full Name
             </label>
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <User className="h-4 w-4" />
+            <div className="position-relative rounded-2 shadow-sm">
+              <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                <User className=" " />
               </div>
               <input
                 id="name"
@@ -161,20 +161,20 @@ export const Register = () => {
                 value={name}
                 onChange={handleChange}
                 placeholder="John Smith"
-                className="form-input pl-10"
+                className="form-control ps-5"
                 disabled={isLoading}
               />
             </div>
           </div>
 
           {/* Email Address */}
-          <div className="form-group">
+          <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email Address
             </label>
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <Mail className="h-4 w-4" />
+            <div className="position-relative rounded-2 shadow-sm">
+              <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                <Mail className=" " />
               </div>
               <input
                 id="email"
@@ -184,7 +184,7 @@ export const Register = () => {
                 value={email}
                 onChange={handleChange}
                 placeholder="name@example.com"
-                className="form-input pl-10"
+                className="form-control ps-5"
                 disabled={isLoading}
               />
             </div>
@@ -192,14 +192,14 @@ export const Register = () => {
 
           {/* Additional Fields for Sellers */}
           {role === 'seller' && (
-            <div className="space-y-4 p-4 bg-purple-50/50 rounded-xl border border-purple-100">
-              <div className="form-group mb-0">
-                <label htmlFor="shopName" className="form-label text-purple-900 font-semibold">
+            <div className="vstack gap-3 p-3 bg-primary-subtle rounded-3 border border-primary-subtle">
+              <div className="mb-3 mb-0">
+                <label htmlFor="shopName" className="form-label text-primary fw-semibold">
                   Your Store Name *
                 </label>
-                <div className="relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-purple-400">
-                    <Building className="h-4 w-4" />
+                <div className="position-relative rounded-2 shadow-sm">
+                  <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-primary">
+                    <Building className=" " />
                   </div>
                   <input
                     id="shopName"
@@ -209,14 +209,14 @@ export const Register = () => {
                     value={shopName}
                     onChange={handleChange}
                     placeholder="My Official Store"
-                    className="form-input pl-10 border-purple-200 focus:border-purple-500 focus:ring-purple-500"
+                    className="form-control ps-5 border-primary-subtle  "
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="form-group mb-0">
-                <label htmlFor="shopDescription" className="form-label text-purple-900">
+              <div className="mb-3 mb-0">
+                <label htmlFor="shopDescription" className="form-label text-primary">
                   Short Description (Optional)
                 </label>
                 <textarea
@@ -226,7 +226,7 @@ export const Register = () => {
                   value={shopDescription}
                   onChange={handleChange}
                   placeholder="Experts in electronics and gadgets..."
-                  className="form-input border-purple-200 focus:border-purple-500 focus:ring-purple-500"
+                  className="form-control border-primary-subtle  "
                   disabled={isLoading}
                 />
               </div>
@@ -234,13 +234,13 @@ export const Register = () => {
           )}
 
           {/* Password */}
-          <div className="form-group">
+          <div className="mb-3">
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <Lock className="h-4 w-4" />
+            <div className="position-relative rounded-2 shadow-sm">
+              <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                <Lock className=" " />
               </div>
               <input
                 id="password"
@@ -250,20 +250,20 @@ export const Register = () => {
                 value={password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="form-input pl-10"
+                className="form-control ps-5"
                 disabled={isLoading}
               />
             </div>
           </div>
 
           {/* Confirm Password */}
-          <div className="form-group">
+          <div className="mb-3">
             <label htmlFor="confirmPassword" className="form-label">
               Confirm Password
             </label>
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <Lock className="h-4 w-4" />
+            <div className="position-relative rounded-2 shadow-sm">
+              <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
+                <Lock className=" " />
               </div>
               <input
                 id="confirmPassword"
@@ -273,7 +273,7 @@ export const Register = () => {
                 value={confirmPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="form-input pl-10"
+                className="form-control ps-5"
                 disabled={isLoading}
               />
             </div>
@@ -283,17 +283,17 @@ export const Register = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full flex items-center justify-center gap-2 py-3 text-sm font-medium rounded-lg text-white shadow-sm transition-colors ${
+            className={`w-100 d-flex align-items-center justify-content-center gap-2 py-3 small fw-medium rounded-3 text-white shadow-sm  ${
               role === 'seller'
-                ? 'bg-purple-600 hover:bg-purple-700 focus:ring-purple-500'
-                : 'btn-primary'
+                ? 'bg-primary-subtle  '
+                : 'btn btn-primary'
             }`}
           >
             {isLoading ? (
               <Spinner size="sm" className="text-white" />
             ) : (
               <>
-                <UserCheck className="h-4 w-4" />
+                <UserCheck className=" " />
                 <span>{role === 'seller' ? 'Create Seller Account' : 'Create Account'}</span>
               </>
             )}
@@ -301,10 +301,10 @@ export const Register = () => {
         </form>
 
         {/* Footer */}
-        <div className="text-center pt-4 border-t border-gray-100">
-          <p className="text-sm text-gray-600">
+        <div className="text-center pt-3 border-top border-secondary-subtle">
+          <p className="small text-secondary">
             Already have an account?{' '}
-            <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            <Link to="/login" className="fw-semibold text-primary text-primary">
               Log in here
             </Link>
           </p>

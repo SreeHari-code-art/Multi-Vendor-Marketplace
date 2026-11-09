@@ -55,26 +55,26 @@ export const AdminDashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5 vstack gap-5">
       
       {/* Cabecera del Panel */}
-      <div className="bg-gradient-to-r from-gray-900 via-indigo-950 to-indigo-900 p-8 rounded-3xl text-white shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md border border-white/20 text-indigo-200">
-            <ShieldCheck className="h-3.5 w-3.5 text-indigo-400" />
+      <div className="    p-5 rounded-3 text-white shadow d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-4">
+        <div className="vstack gap-2">
+          <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small fw-semibold bg-dark-subtle  border border-white/20 text-primary">
+            <ShieldCheck className="  text-primary" />
             Administration Console
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">
+          <h1 className="fs-2 fw-bolder ">
             Global Panel, {user?.name || 'Administrator'}
           </h1>
-          <p className="text-sm text-gray-300 max-w-xl">
+          <p className="small text-secondary mw-100">
             Real-time monitoring of transactions, users, stores, and the overall platform catalog.
           </p>
         </div>
@@ -87,69 +87,69 @@ export const AdminDashboard = () => {
       {/* ==========================================
           1. Tarjetas de KPIs Globales
           ========================================== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
         
         {/* Ingresos Totales de la Plataforma */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Total Revenue (GMV)</span>
-            <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
-              <DollarSign className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Total Revenue (GMV)</span>
+            <div className="p-2 bg-success-subtle text-success rounded-3">
+              <DollarSign className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {formatCurrency(stats.totalPlatformRevenue || 0)}
           </h3>
-          <p className="text-xs text-emerald-600 flex items-center gap-1 font-medium">
-            <TrendingUp className="h-3.5 w-3.5" />
+          <p className="small text-success d-flex align-items-center gap-1 fw-medium">
+            <TrendingUp className=" " />
             <span>+18.4% vs mes anterior</span>
           </p>
         </div>
 
         {/* Total de Usuarios */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Registered Users</span>
-            <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
-              <Users className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Registered Users</span>
+            <div className="p-2 bg-primary-subtle text-primary rounded-3">
+              <Users className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.totalUsers || 0}
           </h3>
-          <span className="text-xs text-indigo-600 font-medium block">
+          <span className="small text-primary fw-medium d-block">
           Active buyers and sellers
           </span>
         </div>
 
         {/* Total de Tiendas */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Affiliated Stores</span>
-            <div className="p-2.5 bg-purple-50 text-purple-600 rounded-xl">
-              <Store className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Affiliated Stores</span>
+            <div className="p-2 bg-primary-subtle text-primary rounded-3">
+              <Store className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.totalShops || 0}
           </h3>
-          <span className="text-xs text-purple-600 font-medium block">
+          <span className="small text-primary fw-medium d-block">
           Independent businesses operating
           </span>
         </div>
 
         {/* Total de Productos */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between text-gray-500">
-            <span className="text-xs font-semibold uppercase tracking-wider">Global Catalog</span>
-            <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-              <Package className="h-5 w-5" />
+        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-2">
+          <div className="d-flex align-items-center justify-content-between text-secondary">
+            <span className="small fw-semibold text-uppercase ">Global Catalog</span>
+            <div className="p-2 bg-warning-subtle text-warning rounded-3">
+              <Package className=" " />
             </div>
           </div>
-          <h3 className="text-2xl font-extrabold text-gray-900">
+          <h3 className="fs-3 fw-bolder text-dark">
             {stats.totalProducts || 0}
           </h3>
-          <span className="text-xs text-amber-600 font-medium block">
+          <span className="small text-warning fw-medium d-block">
           Total items published
           </span>
         </div>
@@ -159,54 +159,54 @@ export const AdminDashboard = () => {
       {/* ==========================================
           2. Transacciones y Órdenes Recientes Globales
           ========================================== */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-white rounded-3 border border-secondary-subtle shadow-sm overflow-hidden">
+        <div className="px-4 py-3 border-bottom border-secondary-subtle d-flex align-items-center justify-content-between">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Recent Platform Transactions</h2>
-            <p className="text-xs text-gray-500 mt-0.5">General record of orders processed by all sellers</p>
+            <h2 className="fs-5 fw-bold text-dark">Recent Platform Transactions</h2>
+            <p className="small text-secondary mt-1">General record of orders processed by all sellers</p>
           </div>
         </div>
 
         {recentOrders.length === 0 ? (
-          <div className="p-12 text-center space-y-3">
-            <ShoppingBag className="h-10 w-10 text-gray-400 mx-auto" />
-            <h3 className="text-base font-semibold text-gray-900">No transactions recorded</h3>
-            <p className="text-xs text-gray-500">Purchases made on the platform will appear here.</p>
+          <div className="p-5 text-center vstack gap-3">
+            <ShoppingBag className="  text-secondary mx-auto" />
+            <h3 className=" fw-semibold text-dark">No transactions recorded</h3>
+            <p className="small text-secondary">Purchases made on the platform will appear here.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+            <table className="w-100 text-start small">
+              <thead className="bg-body-tertiary text-secondary small text-uppercase  border-bottom border-secondary-subtle">
                 <tr>
-                  <th className="px-6 py-3 font-semibold">ID Orden</th>
-                  <th className="px-6 py-3 font-semibold">Buyer</th>
-                  <th className="px-6 py-3 font-semibold">Fecha</th>
-                  <th className="px-6 py-3 font-semibold">Monto Total</th>
-                  <th className="px-6 py-3 font-semibold">Estado</th>
+                  <th className="px-4 py-3 fw-semibold">ID Orden</th>
+                  <th className="px-4 py-3 fw-semibold">Buyer</th>
+                  <th className="px-4 py-3 fw-semibold">Fecha</th>
+                  <th className="px-4 py-3 fw-semibold">Monto Total</th>
+                  <th className="px-4 py-3 fw-semibold">Estado</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className=" ">
                 {recentOrders.map((order) => (
-                  <tr key={order._id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="px-6 py-4 font-mono font-bold text-gray-900 text-xs">
+                  <tr key={order._id} className="bg-body-tertiary ">
+                    <td className="px-4 py-3 font-monospace fw-bold text-dark small">
                       #{order._id.slice(-8)}
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-900">
+                    <td className="px-4 py-3 fw-medium text-dark">
                       {order.user?.name || order.shippingAddress?.fullName || 'Cliente'}
                     </td>
-                    <td className="px-6 py-4 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-secondary small">
                       {formatDate(order.createdAt)}
                     </td>
-                    <td className="px-6 py-4 font-bold text-gray-900">
+                    <td className="px-4 py-3 fw-bold text-dark">
                       {formatCurrency(order.totalPrice)}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       <Badge variant={
                         order.status === 'delivered' ? 'success' :
                         order.status === 'shipped' ? 'info' :
                         order.status === 'processing' ? 'primary' : 'warning'
                       }>
-                        <span className="capitalize">{order.status || 'Pending'}</span>
+                        <span className="text-capitalize">{order.status || 'Pending'}</span>
                       </Badge>
                     </td>
                   </tr>
