@@ -1,16 +1,59 @@
 const express = require('express');
 const router = express.Router();
+
+// Importar los controladores de administración
+const {
+  getAdminStats,
+  getAllUsers,
+  updateUserRole,
+  deleteUser,
+  getAllOrdersAdmin,
+} = require('../controllers/adminController');
+
+// Importar los middlewares de autenticación y control de roles
 const { protect } = require('../middleware/authMiddleware');
-const { authorize } = require('../middleware/roleMiddleware');
+const { restrictTo } = require('../middleware/roleMiddleware');
 
-// Example: Only a Seller can create a product
-router.post('/create', protect, authorize('seller', 'admin'), (req, res) => {
-  res.json({ message: 'Product created successfully by authorized seller/admin' });
-});
+/**
+ * Middleware Global del Enrutador:
+ * Todas las rutas declaradas en este archivo están protegidas y 
+ * restringidas exclusivamente a usuarios con rol de Administrador ('admin').
+ */
+router.use(protect, restrictTo('admin'));
 
-// Example: Only an Admin can view all system users
-router.get('/admin/users', protect, authorize('admin'), (req, res) => {
-  res.json({ message: 'List of all users (Admin view)' });
-});
+/**
+ * @route   GET /api/v1/admin/stats
+ * @desc    Obtener estadísticas generales y financieras del marketplace
+ * @access  Private (Admin)
+ */
+router.get('/stats', getAdminStats);
+
+/**
+ * @route   GET /api/v1/admin/users
+ * @desc    Obtener la lista completa de todos los usuarios registrados
+ * @access  Private (Admin)
+ */
+router.get('/users', getAllUsers);
+
+/**
+ * @route   PUT /api/v1/admin/users/:id/role
+ * @desc    Actualizar el rol de un usuario específico (customer, seller, admin)
+ * @access  Private (Admin)
+ */
+router.put('/users/:id/role', updateUserRole);
+
+/**
+ * @route   DELETE /api/v1/admin/users/:id
+ * @desc    Eliminar un usuario del sistema (incluyendo su tienda y productos si es vendedor)
+ * @access  Private (Admin)
+ */
+router.delete('/users/:id', deleteUser);
+
+/**
+ * @route   GET /api/v1/admin/orders
+ * @desc    Obtener una visión global de todos los pedidos realizados en cualquier tienda
+ * @access  Private (Admin)
+ */
+router.get('/orders', getAllOrdersAdmin);
 
 module.exports = router;

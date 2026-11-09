@@ -1,26 +1,31 @@
 /**
- * Middleware to restrict access based on user roles
- * @param  {...string} allowedRoles - Roles allowed to access the route (e.g., 'admin', 'seller', 'customer')
+ * Middleware para restringir el acceso a rutas según los roles permitidos.
+ * Nota: Debe utilizarse SIEMPRE después del `authMiddleware` (protect).
+ * 
+ * @param {...string} roles - Lista de roles permitidos (ej: 'admin', 'seller')
+ * @returns {Function} Middleware de Express
  */
-const authorize = (...allowedRoles) => {
+const restrictTo = (...roles) => {
   return (req, res, next) => {
-    // 1. Ensure authMiddleware has already run and attached req.user
-    if (!req.user) {
-      return res.status(401).json({ 
-        message: 'Unauthorized: Authentication required before authorization' 
+    // 1. Verificar si el usuario está autenticado y existe en el request
+    if (!req.user || !req.user.role) {
+      return res.status(401).json({
+        success: false,
+        message: 'No autorizado, no se encontró información de rol o usuario',
       });
     }
 
-    // 2. Check if the user's role is included in the allowed roles list
-    if (!allowedRoles.includes(req.user.role)) {
+    // 2. Comprobar si el rol del usuario está incluido en los roles permitidos
+    if (!roles.includes(req.user.role)) {
       return res.status(403).json({
-        message: `Access denied: Your role ('${req.user.role}') is not authorized to access this route.`
+        success: false,
+        message: `Acceso denegado. El rol '${req.user.role}' no tiene permisos para realizar esta acción`,
       });
     }
 
-    // 3. User is authorized, proceed to the next middleware or controller
+    // 3. Si el rol es válido, continuar con la siguiente función o controlador
     next();
   };
 };
 
-module.exports = { authorize };
+module.exports = { restrictTo };

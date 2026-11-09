@@ -1,167 +1,270 @@
 const Product = require('../models/Product');
 const Shop = require('../models/Shop');
 
-// ==================== PUBLIC ENDPOINTS ====================
-
-// 1. Get All Products (with Search, Category Filter, and Sorting)
-exports.getProducts = async (req, res) => {
+/**
+ * @desc    Obtener lista de productos públicos con filtros, búsqueda y paginación
+ * @route   GET /api/v1/products
+ * @access  Public
+ */
+const getProducts = async (req, res, next) => {
   try {
-    const { search, category, minPrice, maxPrice, sort, page = 1, limit = 10 } = req.query;
-    let query = { isActive: true };
+    const {
+      keyword,
+      category,
+      page = 1,
+      limit = 10,
+      sort = '-createdAt',
+      minPrice,
+      maxPrice,
+    } = req.query;
 
-    // Search by product name or description (case-insensitive)
-    if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
-      ];
+    // Construir objeto de consulta base (solo productos activos)
+    const query = { isActive: true };
+
+    // Filtro por búsqueda de texto (nombre o descripción)
+    if (keyword) {
+      query.$text = { $search: keyword };
     }
 
-    // Filter by category
+    // Filtro por categoría
     if (category) {
-      query.category = category.toLowerCase();
+      query.category = category;
     }
 
-    // Filter by price range
+    // Filtro por rango de precios
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
-    // Pagination setup
-    const skip = (Number(page) - 1) * Number(limit);
+    // Paginación
+    const pageSize = Number(limit);
+    const pageNumber = Number(page);
+    const skip = (pageNumber - 1) * pageSize;
 
-    // Sorting setup
-    let sortOption = { createdAt: -1 }; // Default: newest first
-    if (sort === 'price-low') sortOption = { price: 1 };
-    if (sort === 'price-high') sortOption = { price: -1 };
-
+    // Ejecutar consulta con población de la tienda asociada
     const products = await Product.find(query)
-      .populate('shop', 'shopName verificationStatus')
-      .sort(sortOption)
+      .populate('shop', 'name logo ratingAverage')
+      .sort(sort)
       .skip(skip)
-      .limit(Number(limit));
+      .limit(pageSize);
 
+    // Contar total de documentos para la paginación en el frontend
     const total = await Product.countDocuments(query);
 
-    res.json({
+    res.status(200).json({
       success: true,
-      totalProducts: total,
-      totalPages: Math.ceil(total / limit),
-      currentPage: Number(page),
-      products
+      count: products.length,
+      total,
+      pages: Math.ceil(total / pageSize),
+      currentPage: pageNumber,
+      data: products,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
 };
 
-// 2. Get Single Product by ID
-exports.getProductById = async (req, res) => {
+/**
+ * @desc    Obtener un producto por su ID
+ * @route   GET /api/v1/products/:id
+ * @access  Public
+ */
+const getProductById = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).populate('shop', 'shopName description address verificationStatus');
-    
+    const product = await Product.findById(req.params.id).populate(
+      'shop',
+      'name logo description email phone address ratingAverage'
+    );
+
     if (!product || !product.isActive) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'Producto no encontrado',
+      });
     }
 
-    res.json({ success: true, product });
+    res.status(200).json({
+      success: true,
+      data: product,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
 };
 
-// ==================== VENDOR CRUD ENDPOINTS ====================
-
-// 3. Create Product (Vendor only)
-exports.createProduct = async (req, res) => {
+/**
+ * @desc    Crear un nuevo producto (Solo para Vendedores con tienda aprobada)
+ * @route   POST /api/v1/products
+ * @access  Private (Seller/Admin)
+ */
+const createProduct = async (req, res, next) => {
   try {
-    const { name, description, price, stock, category, images } = req.body;
+    const { name, description, category, price, compareAtPrice, stock, images, isFeatured } = req.body;
 
-    // Find the shop owned by the logged-in seller
-    const shop = await Shop.findOne({ seller: req.user.id });
-    if (!shop) {
-      return res.status(404).json({ message: 'You must create a shop profile before adding products' });
+    // 1. Buscar la tienda asociada al usuario autenticado (si es seller)
+    let shopId = req.body.shop;
+
+    if (req.user.role === 'seller') {
+      const shop = await Shop.findOne({ seller: req.user._id });
+      if (!shop) {
+        return res.status(400).json({
+          success: false,
+          message: 'Debe registrar y tener una tienda creada antes de publicar productos',
+        });
+      }
+      if (shop.status !== 'approved') {
+        return res.status(403).json({
+          success: false,
+          message: `Su tienda se encuentra en estado '${shop.status}'. Debe estar aprobada para publicar productos.`,
+        });
+      }
+      shopId = shop._id;
+    } else if (req.user.role === 'admin' && !shopId) {
+      return res.status(400).json({
+        success: false,
+        message: 'El administrador debe especificar el ID de la tienda para el producto',
+      });
     }
 
-    if (shop.verificationStatus !== 'approved') {
-      return res.status(403).json({ message: 'Your shop must be verified by an admin before you can list products' });
-    }
-
+    // 2. Crear el producto
     const product = await Product.create({
-      shop: shop._id,
+      shop: shopId,
       name,
       description,
+      category,
       price,
+      compareAtPrice,
       stock,
-      category: category.toLowerCase(),
-      images
+      images,
+      isFeatured,
     });
 
     res.status(201).json({
-      message: 'Product created successfully',
-      product
+      success: true,
+      message: 'Producto creado exitosamente',
+      data: product,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
 };
 
-// 4. Update Product (Vendor only - must own the shop tied to the product)
-exports.updateProduct = async (req, res) => {
+/**
+ * @desc    Actualizar un producto existente
+ * @route   PUT /api/v1/products/:id
+ * @access  Private (Seller dueño o Admin)
+ */
+const updateProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    
-    // Find product first
-    const product = await Product.findById(id);
+    let product = await Product.findById(req.params.id);
+
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'Producto no encontrado',
+      });
     }
 
-    // Verify ownership via shop
-    const shop = await Shop.findById(product.shop);
-    if (!shop || shop.seller.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Not authorized to update this product' });
+    // Verificar si el usuario es el vendedor dueño de la tienda o un administrador
+    if (req.user.role !== 'admin') {
+      const shop = await Shop.findOne({ seller: req.user._id });
+      if (!shop || product.shop.toString() !== shop._id.toString()) {
+        return res.status(403).json({
+          success: false,
+          message: 'No tiene permisos para actualizar este producto',
+        });
+      }
     }
 
-    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
+    // Actualizar producto
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
 
-    res.json({
-      message: 'Product updated successfully',
-      product: updatedProduct
+    res.status(200).json({
+      success: true,
+      message: 'Producto actualizado exitosamente',
+      data: product,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
 };
 
-// 5. Delete Product (Vendor only - soft delete or hard delete)
-exports.deleteProduct = async (req, res) => {
+/**
+ * @desc    Eliminar un producto
+ * @route   DELETE /api/v1/products/:id
+ * @access  Private (Seller dueño o Admin)
+ */
+const deleteProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const product = await Product.findById(req.params.id);
 
-    const product = await Product.findById(id);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'Producto no encontrado',
+      });
     }
 
-    // Verify ownership via shop
-    const shop = await Shop.findById(product.shop);
-    if (!shop || shop.seller.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Not authorized to delete this product' });
+    // Verificar permisos de propiedad
+    if (req.user.role !== 'admin') {
+      const shop = await Shop.findOne({ seller: req.user._id });
+      if (!shop || product.shop.toString() !== shop._id.toString()) {
+        return res.status(403).json({
+          success: false,
+          message: 'No tiene permisos para eliminar este producto',
+        });
+      }
     }
 
-    // Option A: Hard delete
     await product.deleteOne();
 
-    // Option B (Alternative): Soft delete -> product.isActive = false; await product.save();
-
-    res.json({ message: 'Product deleted successfully' });
+    res.status(200).json({
+      success: true,
+      message: 'Producto eliminado exitosamente',
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
+};
+
+/**
+ * @desc    Obtener todos los productos de la tienda del vendedor autenticado
+ * @route   GET /api/v1/products/seller/my-products
+ * @access  Private (Seller)
+ */
+const getSellerProducts = async (req, res, next) => {
+  try {
+    const shop = await Shop.findOne({ seller: req.user._id });
+
+    if (!shop) {
+      return res.status(404).json({
+        success: false,
+        message: 'Tienda no encontrada para este usuario',
+      });
+    }
+
+    const products = await Product.find({ shop: shop._id }).sort('-createdAt');
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getSellerProducts,
 };
