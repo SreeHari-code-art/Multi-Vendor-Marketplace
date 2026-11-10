@@ -52,20 +52,22 @@ export const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="mw-100 mx-auto px-3 py-5 text-center vstack gap-4">
-        <div className="  bg-primary-subtle text-primary rounded-pill d-flex align-items-center justify-content-center mx-auto">
-          <ShoppingBag className=" " />
+      <div className="container mx-auto px-3 py-5 text-center vstack gap-4 min-vh-75 justify-content-center">
+        <div className="p-4 bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto" style={{ width: '80px', height: '80px' }}>
+          <ShoppingBag size={36} />
         </div>
         <div className="vstack gap-2">
-          <h2 className="fs-3 fw-bold text-dark">Your cart is empty</h2>
+          <h2 className="fs-3 fw-bold text-body">Your cart is empty</h2>
           <p className="small text-secondary mw-100 mx-auto">
             It looks like you haven&apos;t added any products yet. Explore our catalog and discover great deals!
           </p>
         </div>
-        <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3">
-          <ArrowLeft className=" " />
-          <span>Explore Catalog</span>
-        </Link>
+        <div>
+          <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3">
+            <ArrowLeft size={18} />
+            <span>Explore Catalog</span>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -76,16 +78,16 @@ export const Cart = () => {
       {/* Header */}
       <div className="d-flex align-items-center justify-content-between pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="fs-2 fw-bold text-dark">Shopping Cart</h1>
-          <p className="small text-secondary mt-1">
-            You have <strong className="text-dark">{totalQuantity}</strong> {totalQuantity === 1 ? 'item' : 'items'} in your order
+          <h1 className="fs-2 fw-bold text-body">Shopping Cart</h1>
+          <p className="small text-secondary mt-1 mb-0">
+            You have <strong className="text-body">{totalQuantity}</strong> {totalQuantity === 1 ? 'item' : 'items'} in your order
           </p>
         </div>
         <button
           onClick={handleClearCart}
-          className="small fw-semibold text-danger text-danger-emphasis d-flex align-items-center gap-2 "
+          className="btn btn-link text-danger text-decoration-none small fw-semibold d-flex align-items-center gap-2 p-0"
         >
-          <Trash2 className=" " />
+          <Trash2 size={16} />
           <span>Clear Cart</span>
         </button>
       </div>
@@ -93,7 +95,7 @@ export const Cart = () => {
       <div className="row row-cols-1 row-cols-lg-3 g-5 align-items-start">
         
         {/* ==========================================
-            1. Lista de Productos en el Carrito
+            1. Cart Items List
             ========================================== */}
         <div className="col-lg-8 vstack gap-3">
           {cartItems.map((item) => {
@@ -104,60 +106,61 @@ export const Cart = () => {
             return (
               <div 
                 key={item._id}
-                className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between p-3 bg-white rounded-3 border border-secondary-subtle shadow-sm gap-3"
+                className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between p-3 bg-body border border-secondary-subtle rounded-3 shadow-sm gap-3"
               >
-                {/* Imagen e Información */}
+                {/* Image and Info */}
                 <div className="d-flex align-items-center gap-3 flex-fill">
                   <img 
                     src={itemImage} 
                     alt={item.name} 
-                    className="  object-fit-cover rounded-3 bg-body-tertiary flex-shrink-0"
+                    className="object-fit-cover rounded-3 bg-body-tertiary flex-shrink-0"
+                    style={{ width: '80px', height: '80px' }}
                   />
                   <div className="vstack gap-1">
                     <span className="small fw-semibold text-primary d-flex align-items-center gap-1">
-                      <Store className=" " />
+                      <Store size={14} />
                       {item.shop?.name || 'Official Store'}
                     </span>
-                    <h3 className="small fw-semibold text-dark ">
-                      <Link to={`/products/${item._id}`} className="text-primary ">
+                    <h3 className="small fw-semibold mb-0">
+                      <Link to={`/products/${item._id}`} className="text-body text-decoration-none">
                         {item.name}
                       </Link>
                     </h3>
-                    <p className="small text-secondary">
-                      Precio unitario: <strong className="text-body">{formatCurrency(item.price)}</strong>
+                    <p className="small text-secondary mb-0">
+                      Unit Price: <strong className="text-body">{formatCurrency(item.price)}</strong>
                     </p>
                   </div>
                 </div>
 
-                {/* Controles de Cantidad y Subtotal */}
-                <div className="d-flex align-items-center justify-content-between w-100  gap-4 border-top border-top-0 pt-3 pt-sm-0">
-                  {/* Selector de cantidad */}
-                  <div className="d-flex align-items-center border border-secondary-subtle rounded-3 bg-white">
+                {/* Quantity Controls & Subtotal */}
+                <div className="d-flex align-items-center justify-content-between w-100 w-sm-auto gap-4 pt-3 pt-sm-0 border-top border-secondary-subtle border-top-sm-0">
+                  {/* Quantity selector */}
+                  <div className="d-flex align-items-center border border-secondary-subtle rounded-3 bg-body-secondary overflow-hidden">
                     <button
                       onClick={() => handleQuantityChange(item._id, item.quantity, item.stock, -1)}
                       disabled={item.quantity <= 1}
-                      className="p-2 text-secondary bg-secondary-subtle  "
+                      className="btn btn-sm btn-link text-body text-decoration-none px-2 py-1 rounded-0 border-0"
                       title="Decrease quantity"
                     >
-                      <Minus className=" " />
+                      <Minus size={14} />
                     </button>
-                    <span className="px-3 py-1 small fw-bold text-dark  text-center">
+                    <span className="px-2 small fw-bold text-body text-center" style={{ minWidth: '30px' }}>
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => handleQuantityChange(item._id, item.quantity, item.stock, 1)}
                       disabled={item.quantity >= item.stock}
-                      className="p-2 text-secondary bg-secondary-subtle  "
+                      className="btn btn-sm btn-link text-body text-decoration-none px-2 py-1 rounded-0 border-0"
                       title="Increase quantity"
                     >
-                      <Plus className=" " />
+                      <Plus size={14} />
                     </button>
                   </div>
 
-                  {/* Subtotal por ítem */}
-                  <div className="text-end ">
+                  {/* Item Subtotal */}
+                  <div className="text-end">
                     <span className="small text-secondary d-block d-sm-none">Subtotal</span>
-                    <span className="small fw-bold text-dark">
+                    <span className="small fw-bold text-body">
                       {formatCurrency(item.price * item.quantity)}
                     </span>
                   </div>
@@ -165,10 +168,10 @@ export const Cart = () => {
                   {/* Remove item */}
                   <button
                     onClick={() => handleRemove(item._id)}
-                    className="p-2 text-secondary text-danger bg-danger-subtle rounded-3 "
+                    className="p-2 text-danger bg-danger-subtle border-0 rounded-3"
                     title="Remove product"
                   >
-                    <Trash2 className=" " />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </div>
@@ -176,50 +179,52 @@ export const Cart = () => {
           })}
 
           <div className="pt-2">
-            <Link to="/products" className="d-inline-flex align-items-center gap-2 small fw-medium text-primary text-primary">
-              <ArrowLeft className=" " />
+            <Link to="/products" className="d-inline-flex align-items-center gap-2 small fw-medium text-primary text-decoration-none">
+              <ArrowLeft size={16} />
               <span>Continue shopping</span>
             </Link>
           </div>
         </div>
 
         {/* ==========================================
-            2. Resumen del Pedido (Checkout Sidebar)
+            2. Order Summary Sidebar
             ========================================== */}
-        <div className="bg-white p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-4">
-          <h3 className="fs-5 fw-bold text-dark border-bottom pb-3">Order Summary</h3>
+        <div className="col-lg-4">
+          <div className="bg-body p-4 rounded-3 border border-secondary-subtle shadow-sm vstack gap-4 sticky-top" style={{ top: '90px' }}>
+            <h3 className="fs-5 fw-bold text-body border-bottom border-secondary-subtle pb-3 mb-0">Order Summary</h3>
 
-          <div className="vstack gap-3 small">
-            <div className="d-flex align-items-center justify-content-between text-secondary">
-              <span>Subtotal ({totalQuantity} ítems)</span>
-              <span className="fw-semibold text-dark">{formatCurrency(totalAmount)}</span>
-            </div>
-            <div className="d-flex align-items-center justify-content-between text-secondary">
-              <span>Envío estimado</span>
-              <span className="text-success fw-semibold">GRATIS</span>
-            </div>
-            <div className="d-flex align-items-center justify-content-between text-secondary">
-              <span>Impuestos calculados</span>
-              <span className="text-dark fw-semibold">Incluidos</span>
+            <div className="vstack gap-3 small">
+              <div className="d-flex align-items-center justify-content-between text-secondary">
+                <span>Subtotal ({totalQuantity} items)</span>
+                <span className="fw-semibold text-body">{formatCurrency(totalAmount)}</span>
+              </div>
+              <div className="d-flex align-items-center justify-content-between text-secondary">
+                <span>Estimated Shipping</span>
+                <span className="text-success fw-semibold">FREE</span>
+              </div>
+              <div className="d-flex align-items-center justify-content-between text-secondary">
+                <span>Calculated Taxes</span>
+                <span className="text-body fw-semibold">Included</span>
+              </div>
+
+              <div className="border-top border-secondary-subtle pt-3 d-flex align-items-center justify-content-between">
+                <span className="fw-bold text-body">Total Amount</span>
+                <span className="fs-4 fw-bolder text-primary">{formatCurrency(totalAmount)}</span>
+              </div>
             </div>
 
-            <div className="border-top border-secondary-subtle pt-3 d-flex align-items-center justify-content-between">
-              <span className=" fw-bold text-dark">Total a Pagar</span>
-              <span className="fs-4 fw-bolder text-primary">{formatCurrency(totalAmount)}</span>
+            <button
+              onClick={handleProceedToCheckout}
+              className="w-100 btn btn-primary py-3 d-flex align-items-center justify-content-center gap-2 small shadow-sm"
+            >
+              <span>Proceed to Checkout</span>
+              <ArrowRight size={16} />
+            </button>
+
+            <div className="d-flex align-items-center justify-content-center gap-2 small text-secondary pt-2 border-top border-secondary-subtle">
+              <ShieldCheck size={16} className="text-success" />
+              <span>Secure SSL Payment Guarantee</span>
             </div>
-          </div>
-
-          <button
-            onClick={handleProceedToCheckout}
-            className="w-100 btn btn-primary py-3 d-flex align-items-center justify-content-center gap-2 small shadow"
-          >
-            <span>Procesar Pago</span>
-            <ArrowRight className=" " />
-          </button>
-
-          <div className="d-flex align-items-center justify-content-center gap-2 small text-secondary pt-2 border-top border-secondary-subtle">
-            <ShieldCheck className="  text-success" />
-            <span>Garantía de Pago Seguro SSL</span>
           </div>
         </div>
 
@@ -228,3 +233,5 @@ export const Cart = () => {
     </div>
   );
 };
+
+export default Cart;
