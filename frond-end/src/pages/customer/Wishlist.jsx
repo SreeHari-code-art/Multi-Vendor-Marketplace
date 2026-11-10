@@ -38,18 +38,18 @@ export const Wishlist = () => {
 
   if (wishlistItems.length === 0) {
     return (
-      <div className="mw-100 mx-auto px-3 py-5 text-center vstack gap-4">
-        <div className="  bg-danger-subtle text-danger rounded-pill d-flex align-items-center justify-content-center mx-auto">
-          <Heart className="  " />
+      <div className="container mx-auto px-3 py-5 text-center vstack gap-4 min-vh-75 d-flex flex-column justify-content-center align-items-center">
+        <div className="p-4 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center">
+          <Heart size={40} />
         </div>
         <div className="vstack gap-2">
-          <h2 className="fs-3 fw-bold text-dark">Your wishlist is empty</h2>
-          <p className="small text-secondary mw-100 mx-auto">
+          <h2 className="fs-3 fw-bold text-body">Your wishlist is empty</h2>
+          <p className="small text-secondary mw-100 mx-auto mb-0">
             Save products you love by clicking the heart icon while browsing the catalog.
           </p>
         </div>
-        <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3">
-          <ArrowLeft className=" " />
+        <Link to="/products" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 shadow-sm text-decoration-none">
+          <ArrowLeft size={16} />
           <span>Explore Catalog</span>
         </Link>
       </div>
@@ -62,21 +62,21 @@ export const Wishlist = () => {
       {/* Header */}
       <div className="d-flex align-items-center justify-content-between pb-4 border-bottom border-secondary-subtle">
         <div>
-          <h1 className="fs-2 fw-bold text-dark">My Wishlist</h1>
-          <p className="small text-secondary mt-1">
-            You have <strong className="text-dark">{wishlistItems.length}</strong> {wishlistItems.length === 1 ? 'saved item' : 'saved items'}
+          <h1 className="fs-2 fw-bold text-body mb-1">My Wishlist</h1>
+          <p className="small text-secondary mb-0">
+            You have <strong className="text-body">{wishlistItems.length}</strong> {wishlistItems.length === 1 ? 'saved item' : 'saved items'}
           </p>
         </div>
         <button
           onClick={handleClearWishlist}
-          className="small fw-semibold text-danger text-danger-emphasis d-flex align-items-center gap-2 "
+          className="btn btn-link text-danger text-decoration-none small fw-semibold d-flex align-items-center gap-2 p-0"
         >
-          <Trash2 className=" " />
+          <Trash2 size={16} />
           <span>Clear List</span>
         </button>
       </div>
 
-      {/* Cuadrícula de Productos en la Lista de Deseos */}
+      {/* Product Grid */}
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         {wishlistItems.map((product) => {
           const productImage = product.images && product.images.length > 0 
@@ -86,66 +86,66 @@ export const Wishlist = () => {
           return (
             <div 
               key={product._id}
-              className="card position-relative d-flex flex-column overflow-hidden p-0 shadow border border-secondary-subtle rounded-3 bg-white"
+              className="card position-relative d-flex flex-column overflow-hidden p-0 shadow-sm border border-secondary-subtle rounded-3 bg-body"
             >
-              {/* Imagen y Botón de Eliminar Individual */}
-              <div className="position-relative ratio ratio-1x1 w-100 overflow-hidden bg-body-tertiary">
+              {/* Product Image & Remove Button */}
+              <div className="position-relative ratio ratio-1x1 w-100 overflow-hidden bg-body-secondary">
                 <Link to={`/products/${product._id}`}>
                   <img 
                     src={productImage} 
                     alt={product.name}
-                    className="h-100 w-100 object-fit-cover    "
+                    className="h-100 w-100 object-fit-cover"
                   />
                 </Link>
 
                 <button
                   onClick={() => handleRemove(product._id)}
-                  className="position-absolute   p-2 bg-white  text-danger bg-danger-subtle rounded-pill shadow "
+                  className="position-absolute top-0 end-0 m-2 p-2 bg-body text-danger border border-secondary-subtle rounded-circle shadow-sm"
                   title="Remove from favorites"
                 >
-                  <Heart className="  " />
+                  <Heart size={16} fill="currentColor" />
                 </button>
               </div>
 
-              {/* Contenido */}
+              {/* Content */}
               <div className="d-flex flex-fill flex-column p-3">
                 <div className="d-flex align-items-center justify-content-between small text-secondary mb-2">
-                  <span className="text-truncate fw-medium text-primary mw-100 d-flex align-items-center gap-1">
-                    <Store className=" " />
+                  <span className="text-truncate fw-medium text-body d-flex align-items-center gap-1" style={{ maxWidth: '70%' }}>
+                    <Store size={14} />
                     {product.shop?.name || 'Official Store'}
                   </span>
-                  <span className="text-capitalize bg-body-tertiary px-2 py-1 rounded small">
+                  <span className="text-capitalize bg-body-secondary px-2 py-1 rounded small text-secondary">
                     {product.category || 'General'}
                   </span>
                 </div>
 
-                <h3 className="small fw-semibold text-dark mb-2  lh-sm">
-                  <Link to={`/products/${product._id}`} className="text-primary ">
+                <h3 className="small fw-semibold text-body mb-3 lh-sm text-truncate-2">
+                  <Link to={`/products/${product._id}`} className="text-body text-decoration-none">
                     {product.name}
                   </Link>
                 </h3>
 
                 <div className="mt-auto pt-3 border-top border-secondary-subtle d-flex align-items-center justify-content-between">
-                  <span className=" fw-bold text-dark">
+                  <span className="fw-bold text-body">
                     {formatCurrency(product.price)}
                   </span>
 
                   <div className="d-flex align-items-center gap-2">
                     <Link
                       to={`/products/${product._id}`}
-                      className="p-2 text-secondary text-primary bg-secondary-subtle rounded-3 "
+                      className="p-2 text-body bg-body-secondary rounded-3 text-decoration-none"
                       title="View details"
                     >
-                      <Eye className=" " />
+                      <Eye size={16} />
                     </Link>
 
                     <button
                       onClick={() => handleMoveToCart(product)}
                       disabled={product.stock <= 0}
-                      className="p-2 bg-primary-subtle text-white rounded-3 bg-primary opacity-50   shadow-sm"
+                      className={`p-2 rounded-3 border-0 ${product.stock <= 0 ? 'bg-secondary opacity-50 text-white' : 'bg-primary text-white shadow-sm'}`}
                       title="Move to cart"
                     >
-                      <ShoppingBag className=" " />
+                      <ShoppingBag size={16} />
                     </button>
                   </div>
                 </div>
@@ -158,3 +158,5 @@ export const Wishlist = () => {
     </div>
   );
 };
+
+export default Wishlist;

@@ -10,7 +10,7 @@ export const Register = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Detectar si se especificó el rol en la URL (ej: /register?role=seller)
+  // Detect role from URL query param (e.g., /register?role=seller)
   const initialRole = searchParams.get('role') === 'seller' ? 'seller' : 'customer';
 
   const { isAuthenticated, isLoading, error, user } = useSelector((state) => state.auth);
@@ -18,7 +18,7 @@ export const Register = () => {
   useEffect(() => {
     if (isAuthenticated && user) {
       const redirectPath = user.role === 'admin' ? '/admin/dashboard' :
-                         user.role === 'seller' ? '/seller/dashboard' : '/';
+                           user.role === 'seller' ? '/seller/dashboard' : '/';
       navigate(redirectPath, { replace: true });
     }
     return () => {
@@ -26,7 +26,7 @@ export const Register = () => {
     };
   }, [isAuthenticated, user, navigate, dispatch]);
 
-  // Estado del Formulario
+  // Form State
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -84,52 +84,53 @@ export const Register = () => {
   };
 
   return (
-    <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-body-tertiary">
-      <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-flex flex-column gap-5 bg-white p-5 rounded-3 shadow-sm border border-secondary-subtle">
+    <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+      {/* Changed bg-white to bg-body and text-dark to text-body for seamless theme compatibility */}
+      <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-flex flex-column gap-4 bg-body p-4 p-sm-5 rounded-4 shadow-sm border border-secondary-subtle">
         
-        {/* Cabecera */}
+        {/* Header */}
         <div className="text-center">
-          <div className="d-inline-flex align-items-center justify-content-center   rounded-3 bg-primary-subtle text-primary mb-3">
-            <Store className=" " />
+          <div className="d-inline-flex align-items-center justify-content-center p-3 rounded-3 bg-primary-subtle text-primary mb-3 shadow-sm">
+            <Store size={28} />
           </div>
-          <h2 className="fs-3 fw-bold text-dark ">
+          <h2 className="fs-3 fw-bold text-body">
             Create your MultiMarket account
           </h2>
-          <p className="mt-2 small text-secondary">
+          <p className="mt-1 small text-secondary">
             Join our platform as a buyer or open your own store
           </p>
         </div>
 
         {/* Role Selection (Buyer vs Seller) */}
-        <div className="row row-cols-2 g-3 p-2 bg-body-tertiary rounded-3">
+        <div className="row row-cols-2 g-2 p-2 bg-body-tertiary rounded-3 border border-secondary-subtle">
           <button
             type="button"
             onClick={() => setFormData((prev) => ({ ...prev, role: 'customer' }))}
-            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold  ${
+            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold border-0 transition-all ${
               role === 'customer'
-                ? 'bg-white text-primary shadow-sm'
-                : 'text-secondary text-dark'
+                ? 'bg-body text-primary shadow-sm border border-secondary-subtle'
+                : 'bg-transparent text-secondary'
             }`}
           >
-            <ShoppingBag className=" " />
+            <ShoppingBag size={18} />
             <span>Buyer</span>
           </button>
           
           <button
             type="button"
             onClick={() => setFormData((prev) => ({ ...prev, role: 'seller' }))}
-            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold  ${
+            className={`d-flex align-items-center justify-content-center gap-2 py-2 px-3 rounded-3 small fw-semibold border-0 transition-all ${
               role === 'seller'
-                ? 'bg-white text-primary shadow-sm'
-                : 'text-secondary text-dark'
+                ? 'bg-body text-primary shadow-sm border border-secondary-subtle'
+                : 'bg-transparent text-secondary'
             }`}
           >
-            <Building className=" " />
+            <Building size={18} />
             <span>Seller</span>
           </button>
         </div>
 
-        {/* Alertas de Error */}
+        {/* Error Alerts */}
         {(error || validationError) && (
           <Alert
             type="danger"
@@ -141,17 +142,17 @@ export const Register = () => {
           />
         )}
 
-        {/* Formulario */}
-        <form className="mt-4 vstack gap-3" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form className="vstack gap-3" onSubmit={handleSubmit}>
           
           {/* Full Name */}
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+          <div>
+            <label htmlFor="name" className="form-label small fw-medium">
               Full Name
             </label>
-            <div className="position-relative rounded-2 shadow-sm">
+            <div className="position-relative">
               <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
-                <User className=" " />
+                <User size={18} />
               </div>
               <input
                 id="name"
@@ -161,20 +162,20 @@ export const Register = () => {
                 value={name}
                 onChange={handleChange}
                 placeholder="John Smith"
-                className="form-control ps-5"
+                className="form-control ps-5 py-2"
                 disabled={isLoading}
               />
             </div>
           </div>
 
           {/* Email Address */}
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+          <div>
+            <label htmlFor="email" className="form-label small fw-medium">
               Email Address
             </label>
-            <div className="position-relative rounded-2 shadow-sm">
+            <div className="position-relative">
               <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
-                <Mail className=" " />
+                <Mail size={18} />
               </div>
               <input
                 id="email"
@@ -184,7 +185,7 @@ export const Register = () => {
                 value={email}
                 onChange={handleChange}
                 placeholder="name@example.com"
-                className="form-control ps-5"
+                className="form-control ps-5 py-2"
                 disabled={isLoading}
               />
             </div>
@@ -192,14 +193,14 @@ export const Register = () => {
 
           {/* Additional Fields for Sellers */}
           {role === 'seller' && (
-            <div className="vstack gap-3 p-3 bg-primary-subtle rounded-3 border border-primary-subtle">
-              <div className="mb-3 mb-0">
-                <label htmlFor="shopName" className="form-label text-primary fw-semibold">
+            <div className="vstack gap-3 p-3 bg-body-tertiary rounded-3 border border-primary-subtle">
+              <div>
+                <label htmlFor="shopName" className="form-label small fw-semibold text-primary">
                   Your Store Name *
                 </label>
-                <div className="position-relative rounded-2 shadow-sm">
+                <div className="position-relative">
                   <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-primary">
-                    <Building className=" " />
+                    <Building size={18} />
                   </div>
                   <input
                     id="shopName"
@@ -209,14 +210,14 @@ export const Register = () => {
                     value={shopName}
                     onChange={handleChange}
                     placeholder="My Official Store"
-                    className="form-control ps-5 border-primary-subtle  "
+                    className="form-control ps-5 py-2"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="mb-3 mb-0">
-                <label htmlFor="shopDescription" className="form-label text-primary">
+              <div>
+                <label htmlFor="shopDescription" className="form-label small fw-medium text-body">
                   Short Description (Optional)
                 </label>
                 <textarea
@@ -226,7 +227,7 @@ export const Register = () => {
                   value={shopDescription}
                   onChange={handleChange}
                   placeholder="Experts in electronics and gadgets..."
-                  className="form-control border-primary-subtle  "
+                  className="form-control py-2"
                   disabled={isLoading}
                 />
               </div>
@@ -234,13 +235,13 @@ export const Register = () => {
           )}
 
           {/* Password */}
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+          <div>
+            <label htmlFor="password" className="form-label small fw-medium">
               Password
             </label>
-            <div className="position-relative rounded-2 shadow-sm">
+            <div className="position-relative">
               <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
-                <Lock className=" " />
+                <Lock size={18} />
               </div>
               <input
                 id="password"
@@ -250,20 +251,20 @@ export const Register = () => {
                 value={password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="form-control ps-5"
+                className="form-control ps-5 py-2"
                 disabled={isLoading}
               />
             </div>
           </div>
 
           {/* Confirm Password */}
-          <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">
+          <div>
+            <label htmlFor="confirmPassword" className="form-label small fw-medium">
               Confirm Password
             </label>
-            <div className="position-relative rounded-2 shadow-sm">
+            <div className="position-relative">
               <div className="position-absolute top-0 bottom-0 start-0 ps-3 d-flex align-items-center pe-none text-secondary">
-                <Lock className=" " />
+                <Lock size={18} />
               </div>
               <input
                 id="confirmPassword"
@@ -273,7 +274,7 @@ export const Register = () => {
                 value={confirmPassword}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="form-control ps-5"
+                className="form-control ps-5 py-2"
                 disabled={isLoading}
               />
             </div>
@@ -283,17 +284,13 @@ export const Register = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-100 d-flex align-items-center justify-content-center gap-2 py-3 small fw-medium rounded-3 text-white shadow-sm  ${
-              role === 'seller'
-                ? 'bg-primary-subtle  '
-                : 'btn btn-primary'
-            }`}
+            className="w-100 d-flex align-items-center justify-content-center gap-2 py-3 small fw-medium rounded-3 btn btn-primary shadow-sm mt-2"
           >
             {isLoading ? (
               <Spinner size="sm" className="text-white" />
             ) : (
               <>
-                <UserCheck className=" " />
+                <UserCheck size={18} />
                 <span>{role === 'seller' ? 'Create Seller Account' : 'Create Account'}</span>
               </>
             )}
@@ -302,9 +299,9 @@ export const Register = () => {
 
         {/* Footer */}
         <div className="text-center pt-3 border-top border-secondary-subtle">
-          <p className="small text-secondary">
+          <p className="small text-secondary mb-0">
             Already have an account?{' '}
-            <Link to="/login" className="fw-semibold text-primary text-primary">
+            <Link to="/login" className="fw-semibold text-primary text-decoration-none">
               Log in here
             </Link>
           </p>
@@ -314,3 +311,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default Register;

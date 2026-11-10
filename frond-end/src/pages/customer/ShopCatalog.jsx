@@ -44,13 +44,13 @@ export const ShopCatalog = () => {
   return (
     <div className="container mx-auto px-3 px-sm-4 px-lg-5 py-5">
       <div className="mb-5">
-        <p className="small fw-semibold text-uppercase  text-primary">Marketplace</p>
-        <h1 className="mt-2 fs-2 fw-bolder text-dark">Featured Stores</h1>
+        <p className="small fw-semibold text-uppercase text-primary">Marketplace</p>
+        <h1 className="mt-2 fs-2 fw-bolder text-body">Featured Stores</h1>
         <p className="mt-2 text-secondary">Explore verified sellers and discover exclusive products.</p>
       </div>
 
       {shops.length === 0 ? (
-        <div className="rounded-3 border border border-secondary-subtle border-secondary-subtle bg-white p-5 text-center text-secondary">
+        <div className="rounded-3 border border-secondary-subtle bg-body-tertiary p-5 text-center text-secondary">
           There are currently no stores available.
         </div>
       ) : (
@@ -59,38 +59,40 @@ export const ShopCatalog = () => {
             <Link
               key={shop._id}
               to={`/shops/${shop._id}`}
-              className=" overflow-hidden rounded-3 border border-secondary-subtle bg-white shadow-sm   shadow"
+              className="overflow-hidden rounded-3 border border-secondary-subtle bg-body shadow-sm text-decoration-none"
             >
-              <div className=" overflow-hidden bg-body-tertiary">
+              <div className="overflow-hidden bg-body-secondary" style={{ height: '180px' }}>
                 <img
                   src={shop.logo || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80'}
                   alt={shop.name}
-                  className="h-100 w-100 object-fit-cover   "
+                  className="h-100 w-100 object-fit-cover"
                 />
               </div>
 
               <div className="p-3">
                 <div className="mb-3 d-flex align-items-center justify-content-between gap-3">
                   <div className="d-flex align-items-center gap-3">
-                    <div className="d-flex   align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary">
-                      <Store className=" " />
+                    <div className="d-flex align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary p-2">
+                      <Store size={20} />
                     </div>
                     <div>
-                      <h2 className="fs-5 fw-bold text-dark">{shop.name}</h2>
+                      <h2 className="fs-5 fw-bold text-body mb-0">{shop.name}</h2>
                     </div>
                   </div>
                 </div>
 
-                <p className="mb-3  small text-secondary">{shop.description}</p>
+                <p className="mb-3 small text-secondary text-truncate">
+                  {shop.description || 'Discover amazing products from this store.'}
+                </p>
 
                 <div className="mb-3 d-flex align-items-center gap-2 small text-secondary">
-                  <MapPin className="  text-primary" />
+                  <MapPin size={16} className="text-primary" />
                   <span>{shop.address?.city || 'Location unavailable'}, {shop.address?.country || ''}</span>
                 </div>
 
-                <div className="d-flex align-items-center justify-content-between pt-3 small fw-medium text-primary">
+                <div className="d-flex align-items-center justify-content-between pt-3 border-top border-secondary-subtle small fw-medium text-primary">
                   <span>View store</span>
-                  <ArrowRight className="   " />
+                  <ArrowRight size={16} />
                 </div>
               </div>
             </Link>
