@@ -1,0 +1,6 @@
+# Packages an already-built frontend/dist (run `npm run build` on the host first).
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY dist /usr/share/nginx/html
+RUN chmod -R a+rX /usr/share/nginx/html
+EXPOSE 80
