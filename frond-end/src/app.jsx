@@ -47,18 +47,18 @@ import { AlertCircle, ArrowLeft } from 'lucide-react';
 const NotFound = () => {
   return (
     <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center px-3 vstack gap-4">
-      <div className="  bg-danger-subtle text-danger rounded-pill d-flex align-items-center justify-content-center">
-        <AlertCircle className=" " />
+      <div className="p-3 bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center">
+        <AlertCircle size={32} />
       </div>
       <div className="vstack gap-2">
-      <h1 className="fs-1 fw-bolder text-dark ">404 - Page not found</h1>
+        <h1 className="fs-1 fw-bolder text-body">404 - Page not found</h1>
         <p className="small text-secondary mw-100 mx-auto">
-        Sorry, the page you are looking for does not exist, has moved, or you do not have permission to access it.
+          Sorry, the page you are looking for does not exist, has moved, or you do not have permission to access it.
         </p>
       </div>
-      <Link to="/" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-3 small shadow-sm">
-        <ArrowLeft className=" " />
-      <span>Back to Home</span>
+      <Link to="/" className="btn btn-primary d-inline-flex align-items-center gap-2 px-4 py-2 small shadow-sm">
+        <ArrowLeft size={16} />
+        <span>Back to Home</span>
       </Link>
     </div>
   );
@@ -67,7 +67,8 @@ const NotFound = () => {
 export const App = () => {
   return (
     <Router>
-      <div className="min-vh-100 d-flex flex-column bg-body-tertiary text-dark    ">
+      {/* Changed bg-body-tertiary text-dark to bg-body text-body for full theme switching */}
+      <div className="min-vh-100 d-flex flex-column bg-body text-body">
         
         {/* Global Navigation Bar */}
         <Navbar />

@@ -6,6 +6,11 @@ import store from './app/store.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
+// Apply initial theme from localStorage or system preference before rendering
+const savedTheme = localStorage.getItem('theme') || 
+  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+document.documentElement.setAttribute('data-bs-theme', savedTheme);
+
 /**
  * Montaje principal de la aplicación React con el Provider de Redux 
  * y el soporte estricto para modo de desarrollo (StrictMode).
