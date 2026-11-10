@@ -1,0 +1,11 @@
+# Plan B for when `npm ci` inside Docker is slow or hangs on your network.
+# Build the frontend on your Mac first, then let Docker just package the result:
+#
+#   (cd frontend && npm ci && npm run build)
+#   export COMPOSE_FILE=docker-compose.yml:docker-compose.prebuilt.yml
+#   docker compose up --build
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prebuilt
